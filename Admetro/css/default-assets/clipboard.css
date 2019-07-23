@@ -1,0 +1,49 @@
+textarea {
+    resize: none;
+}
+
+.copy,
+.del {
+    line-height: 0.8;
+    font-size: 25px;
+    position: relative;
+    display: inline-block;
+    float: left;
+    margin-right: 3px;
+}
+
+form {
+    margin: 0 0px;
+}
+
+.form-control {
+    color: #888ea8;
+    border: 1px solid #e9ecef;
+    border-radius: 2px;
+}
+
+.form-control:focus {
+    color: #3b3f5c;
+    border-color: #3b3f5c;
+}
+
+.yellow-paragraph {
+    background: #24ccda !important;
+    color: #fff;
+}
+
+.clipboard-copy-input {
+    height: auto;
+}
+
+.clipboard-copy-textarea {
+    height: auto;
+}
+
+.clipboard-copy-para {
+    height: auto;
+}
+
+.paragraph-advance {
+    height: auto;
+}
