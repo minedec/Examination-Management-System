@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neuedu.examsys.dao.BanJiMapper">
+	<insert id="insertBanJi" parameterType="BanJi">
+		INSERT INTO class_table(class_name) 
+		VALUES (#{className})
+	</insert>
+	
+	<sql id="fclass">
+		SELECT class_name className, class_id classId
+		FROM class_table
+	</sql>
+	<select id="queryBanJi" resultType = "BanJi" parameterType="BanJi">
+	    <!-- 启用别名，使得内容能够装在到模型类中 -->
+		<include refid="fclass"></include>
+		<where>
+			<if test="#{classId != null and classId != 0}">
+				and class_id = #{classId}
+			</if>
+			<if test="className != null and className != ''">
+				and class_name = #{className}
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="queryBanJiById" resultType ="BanJi" parameterType="Integer" resultMap="mybanji">
+		SELECT class_name, class_id
+		FROM class_table
+		WHERE class_id=#{cid}
+	</select>
+	<resultMap type="BanJi" id="mybanji">
+		<id column="class_id" property="classId"/>
+		<id column="class_name" property="className"/>
+	</resultMap>
+	
+	
+	<delete id="deleteBanJi" parameterType="Integer">
+		DELETE FROM class_table
+		WHERE class_id=#{id}
+	</delete>
+	
+	
+	<update id="updateBanJi" parameterType="BanJi">
+		UPDATE class_table
+		SET class_name = #{className}
+		WHERE class_id = #{classId}
+	</update>
+</mapper>
