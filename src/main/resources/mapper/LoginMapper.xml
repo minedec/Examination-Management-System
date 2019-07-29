@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- author: jjd
+	 time: 2019/7/29 9:46 -->
+
+
+<mapper namespace="com.neuedu.examsys.dao.LoginMapper">
+	<select id="queryAccountById" parameterType="string" resultMap="accountMap">
+		SELECT *
+		FROM account
+		WHERE a_id = #{id};
+	</select>
+	
+	<resultMap type="com.neuedu.examsys.domain.Account" id="accountMap">
+		<id column="a_id" property="id"/>
+		<result property="pwd" column="a_pwd"/>
+		<result property="role" column="a_role"/>
+	</resultMap>
+</mapper>
