@@ -43,31 +43,35 @@ public class LoginInterceptor implements HandlerInterceptor {
 		 * 拦截以上述开头的网址，判断是否登陆且角色是否匹配，不匹配返回
 		 */
 		System.out.println(request.getRequestURI());
-		HttpSession session = request.getSession();
-		String userId = (String) session.getAttribute("id");
-		//若用户ID为空，表名没有登陆，返回login页
-		if (userId == null) {
-			response.sendRedirect("login_test.html");
-			return false;
-		}
-		
-		String url = request.getRequestURI();
-		System.out.println(url);
-		System.out.println(session);
-		//判断所要访问界面是否符合角色权限，不符合返回login界面
-		if (url.contains("student") && !((String)session.getAttribute("role")).equals("STUDENT")) {
-			System.out.println("Detected illegal access to student");
-			response.sendRedirect("login.html");
-			return false;
-		} else if (url.contains("teacher") && !((String)session.getAttribute("role")).equals("TEACHER")) {
-			System.out.println("Detected illegal access to teacher");
-			response.sendRedirect("login.html");
-			return false;
-		} else if (url.contains("administrator") && !((String)session.getAttribute("role")).equals("ADMINISTRATOR")) {
-			System.out.println("Detected illegal access to administrator");
-			response.sendRedirect("login.html");
-			return false;
-		}
+//		HttpSession session = request.getSession();
+//		String userId = (String) session.getAttribute("id");
+//		String url = request.getRequestURI();
+//		if (url.equals("/exsys/login_test.html")) {
+//			return true;
+//		}
+//		//若用户ID为空，表名没有登陆，返回login页
+//		if (userId == null) {
+//			response.sendRedirect("login_test.html");
+//			return false;
+//		}
+//		
+//		
+//		System.out.println(url);
+//		System.out.println(session);
+//		//判断所要访问界面是否符合角色权限，不符合返回login界面
+//		if (url.contains("student") && !((String)session.getAttribute("role")).equals("STUDENT")) {
+//			System.out.println("Detected illegal access to student");
+//			response.sendRedirect("login.html");
+//			return false;
+//		} else if (url.contains("teacher") && !((String)session.getAttribute("role")).equals("TEACHER")) {
+//			System.out.println("Detected illegal access to teacher");
+//			response.sendRedirect("login.html");
+//			return false;
+//		} else if (url.contains("administrator") && !((String)session.getAttribute("role")).equals("ADMINISTRATOR")) {
+//			System.out.println("Detected illegal access to administrator");
+//			response.sendRedirect("login.html");
+//			return false;
+//		}
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
 	

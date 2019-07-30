@@ -15,7 +15,7 @@ import com.neuedu.examsys.domain.Account;
 import com.neuedu.examsys.domain.AnsCollection;
 import com.neuedu.examsys.domain.Role;
 
-public class Test {
+public class AccountAndAnsCollectionTest {
 
 	public static void main(String[] args) throws Exception{
 		InputStream is = Resources.getResourceAsStream("SqlMapConfig.xml");

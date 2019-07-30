@@ -3,8 +3,8 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.neuedu.examsys.dao.BanJiMapper">
-	<insert id="insertBanJi" parameterType="BanJi">
+<mapper namespace="com.neuedu.examsys.dao.BanjiMapper">
+	<insert id="insertBanJi" parameterType="Banji">
 		INSERT INTO class_table(class_name) 
 		VALUES (#{className})
 	</insert>
@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT class_name className, class_id classId
 		FROM class_table
 	</sql>
-	<select id="queryBanJi" resultType = "BanJi" parameterType="BanJi">
+	<select id="queryBanJi" resultType = "Banji" parameterType="BanJi">
 	    <!-- 启用别名，使得内容能够装在到模型类中 -->
 		<include refid="fclass"></include>
 		<where>
@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
-	<select id="queryBanJiById" resultType ="BanJi" parameterType="Integer" resultMap="mybanji">
+	<select id="queryBanJiById" resultType ="Banji" parameterType="Integer" resultMap="mybanji">
 		SELECT class_name, class_id
 		FROM class_table
 		WHERE class_id=#{cid}
@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	
-	<update id="updateBanJi" parameterType="BanJi">
+	<update id="updateBanJi" parameterType="Banji">
 		UPDATE class_table
 		SET class_name = #{className}
 		WHERE class_id = #{classId}

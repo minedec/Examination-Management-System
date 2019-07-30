@@ -17,32 +17,32 @@ import com.neuedu.examsys.domain.Student;
 public class Test {
 
 	public static void main(String[] args) throws IOException{
-		InputStream is = Resources.getResourceAsStream("SqlMapConfig.xml");
-		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
-		SqlSession session = factory.openSession();
-		StudentMapper sm = session.getMapper(StudentMapper.class);
-		Student s = new Student();
-		List<Student> ss = new ArrayList<>();
-		s.setStudentId("SE1173710227");
-		s.setStudentEmail("123@123.com");
-		s.setStudentMajor("radio");
-		s.setStudentAcademy("computer");
-		s.setStudentName("何");
-		s.setStudentPhone("123456789");
-		s.setStudentSex("male");
-		s.setStudentClass("1737102");
-		s.setStudentAddress("雨荷");
-		s.setStudentNation("汉");
-		s.setStudentIdentity("12010419981027");
-		sm.insertStudent(s);
-		sm.deleteStudent("SE1173710226");
-		ss = sm.queryStudent();
-		for(Student x:ss){
-			System.out.println(x.toString());
-			System.out.println("1");
-		}
-		session.commit();
-		session.close();
+//		InputStream is = Resources.getResourceAsStream("SqlMapConfig.xml");
+//		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
+//		SqlSession session = factory.openSession();
+//		StudentMapper sm = session.getMapper(StudentMapper.class);
+//		Student s = new Student();
+//		List<Student> ss = new ArrayList<>();
+//		s.setStudentId("SE1173710227");
+//		s.setStudentEmail("123@123.com");
+//		s.setStudentMajor("radio");
+//		s.setStudentAcademy("computer");
+//		s.setStudentName("何");
+//		s.setStudentPhone("123456789");
+//		s.setStudentSex("male");
+//		s.setStudentClass("1737102");
+//		s.setStudentAddress("雨荷");
+//		s.setStudentNation("汉");
+//		s.setStudentIdentity("12010419981027");
+//		sm.insertStudent(s);
+//		sm.deleteStudent("SE1173710226");
+//		ss = sm.queryStudent();
+//		for(Student x:ss){
+//			System.out.println(x.toString());
+//			System.out.println("1");
+//		}
+//		session.commit();
+//		session.close();
 	}
 
 }
