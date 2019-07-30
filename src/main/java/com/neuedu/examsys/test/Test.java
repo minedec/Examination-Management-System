@@ -21,8 +21,8 @@ public class Test {
 		InputStream is = Resources.getResourceAsStream("SqlMapConfig.xml");
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
 		SqlSession session = factory.openSession();
-		//AccountMapper sm = session.getMapper(AccountMapper.class);
-		AnsCollectionMapper am = session.getMapper(AnsCollectionMapper.class);
+		AccountMapper sm = session.getMapper(AccountMapper.class);
+//		AnsCollectionMapper am = session.getMapper(AnsCollectionMapper.class);
 //		Student s = new Student();
 //		List<Student> ss = new ArrayList<>();
 //		s.setStudentId("SE1173710226");
@@ -37,9 +37,10 @@ public class Test {
 //		s.setStudentNation("汉");
 //		s.setStudentIdentity("12010419981027");
 		//System.out.println(sm.queryAccountById("1"));
-		//System.out.println(sm.queryAccountsByRole(Role.TEACHER));
+		//System.out.println(sm.queryAccountByRole(Role.TEACHER));
+		//sm.deleteAccount("10");
 //		Account a = new Account();
-//		a.setId("10");
+//		a.setId("11");
 //		a.setPwd("");
 //		a.setRole(Role.TEACHER);
 //		try {
@@ -48,20 +49,20 @@ public class Test {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		//sm.modifyAccountPwdById("10", "110");
-		//sm.modifyAccountRoleById("10", Role.STUDENT);
-		AnsCollection ac = new AnsCollection();
-		ac.setStudentId("1");
-		ac.setExamId(3);
-		ac.setPaperId(3);
-		ac.setPaperId(3);
-		ac.setQuestionId(3);
-		ac.setScore(5);
-		ac.setOption("A");
-		ac.setIsCorrect("true");
-		ac.setDateTime("2019-12-30 10:20:15");
-		//am.insertAns(ac);
-		System.out.println(am.queryScores(ac));
+		sm.modifyAccountPwdById("11", "110");
+		sm.modifyAccountRoleById("11", Role.STUDENT);
+//		AnsCollection ac = new AnsCollection();
+//		ac.setStudentId("1");
+//		ac.setExamId(3);
+//		ac.setPaperId(3);
+//		ac.setPaperId(3);
+//		ac.setQuestionId(3);
+//		ac.setScore(5);
+//		ac.setOption("A");
+//		ac.setIsCorrect("true");
+//		ac.setDateTime("2019-12-30 10:20:15");
+//		//am.insertAns(ac);
+//		System.out.println(am.queryScores(ac));
 		
 		session.commit();
 		session.close();

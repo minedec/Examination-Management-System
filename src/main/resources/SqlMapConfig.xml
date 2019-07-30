@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration> 
 	<properties resource="db.properties"></properties>
 	<typeAliases>
-		<package name='com.neuedu.exansys.domain'/>
+		<package name='com.neuedu.examsys.domain'/>
 	</typeAliases>
 	<environments default="development"> 
 		<environment id="development"> 

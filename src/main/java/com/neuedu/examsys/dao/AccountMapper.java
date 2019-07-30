@@ -2,6 +2,8 @@ package com.neuedu.examsys.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.neuedu.examsys.domain.Account;
 import com.neuedu.examsys.domain.Role;
 
@@ -10,6 +12,7 @@ import com.neuedu.examsys.domain.Role;
  * @author jjd
  *
  */
+@Mapper
 public interface AccountMapper {
 	/**
 	 * 通过ID查找账户
