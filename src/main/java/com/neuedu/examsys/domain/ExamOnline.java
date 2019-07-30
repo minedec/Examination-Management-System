@@ -3,7 +3,7 @@ package com.neuedu.examsys.domain;
 import java.util.HashMap;
 import java.util.Map;
 
-//考试方式枚举类，用来保存是线下/线上类型
+//考试方式枚举类，用来保存是线下/线上类型  7.29 16:30 zjy
 
 public enum ExamOnline {
 	ONLINE("online","线上"),

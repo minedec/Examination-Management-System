@@ -3,7 +3,7 @@ package com.neuedu.examsys.domain;
 import java.util.HashMap;
 import java.util.Map;
 
-//考试类型枚举类，用来保存是正常/缓考/补考
+//考试类型枚举类，用来保存是正常/缓考/补考		7.29 16:25 zjy
 
 public enum ExamType {
 	NORMAL("normal","正常"),

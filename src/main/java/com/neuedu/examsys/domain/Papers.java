@@ -2,7 +2,7 @@ package com.neuedu.examsys.domain;
 
 import java.sql.Date;
 
-//试卷类型，用于试卷生成与管理
+//试卷类型，用于试卷生成与管理	7.29 15:30	zjy
 
 public class Papers {
 	public Papers() {

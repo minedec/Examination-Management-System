@@ -1,6 +1,6 @@
 package com.neuedu.examsys.domain;
 
-//课程类，用于查看学分专业等信息
+//课程类，用于查看学分专业等信息  7.30 9:20 zjy
 
 public class Course {
 	public Course() {

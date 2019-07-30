@@ -2,7 +2,7 @@ package com.neuedu.examsys.domain;
 
 import java.sql.Date;
 
-//考试类，用于考试安排与查询
+//考试类，用于考试安排与查询	7.29 16:30 zjy
 
 public class Exams {
 	public Exams() {
