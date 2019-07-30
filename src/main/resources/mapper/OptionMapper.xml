@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neuedu.examsys.dao.OptionMapper">
+	<insert id="insertOption" parameterType="Option">
+		INSERT INTO options(o_question_id,o_content,o_iscorrect,o_analysis)
+		VALUES(#{questionId},#{content},#{iscorrect},#{analysis});
+	</insert>
+	
+	<delete id="deleteOption" parameterType="Integer">
+		DELETE FROM options
+		WHERE o_id = #{id}
+	</delete>
+	
+	<update id="updateOption" parameterType="Option">
+		UPDATE options
+		SET o_content = #{content}
+		WHERE o_id = #{optionId}
+	</update>
+	
+	<select id="selectOptionByQuestionId" resultType="Option" parameterType="Integer">
+		SELECT o_id optionId,o_content content,o_iscorrect iscorrect,o_analysis analysis
+		FROM options
+		WHERE o_question_id = #{id};
+	</select>
+</mapper>

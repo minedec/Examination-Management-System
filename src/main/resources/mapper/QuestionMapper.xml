@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neuedu.examsys.dao.QuestionMapper">
+	<insert id="insertQuestion" parameterType="Question">
+		INSERT INTO questions(q_content,q_type,q_score,q_course,q_difficulty,q_major,q_datetime,q_author)
+		VALUES(#{content},#{type},#{score},#{course},#{difficulty},#{major},#{datetime},#{author});
+	</insert>
+	
+	<delete id="deleteQuestion" parameterType="Integer">
+		DELETE FROM questions
+		WHERE q_id = #{id}
+	</delete>
+	
+	<update id="updateQuestion" parameterType="Question">
+		UPDATE questions
+		SET q_content = #{content}
+		WHERE q_id = #{questionId}
+	</update>
+	
+	<select id="selectQuestion" resultType="Question">
+		SELECT q_id questionId,q_content content,q_type type,q_score score,q_course course,q_difficulty difficulty,q_major major,q_datetime datetime, q_author author
+		FROM questions
+	</select>
+</mapper>
