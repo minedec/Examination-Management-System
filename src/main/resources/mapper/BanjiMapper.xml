@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neuedu.examsys.dao.BanjiMapper">
+	
+	<insert id="insertBanji" parameterType="com.neuedu.examsys.domain.Banji" >
+		INSERT INTO class(c_id,c_grade,c_major,c_name)
+		VALUES(#{classId},#{grade},#{major},#{className});
+	</insert>
+	<select id="queryBanji" resultType="com.neuedu.examsys.domain.Banji">
+		SELECT c_id classId,c_grade grade,c_major major,c_name className
+		FROM class
+		<where>
+			<if test="classId!=null and classId!=''">
+				and c_name = #{className}
+			</if>
+			<if test="className!=null and className!=''">
+				and c_id = #{classId}
+			</if>
+			<if test="grade!=null and grade!=''">
+				and c_grade = #{grade}
+			</if>
+			<if test="major!=null and major!=''">
+				and c_major = #{major}
+			</if>
+		</where>
+	</select>
+	<select id="selectBanji" resultType="com.neuedu.examsys.domain.Banji" parameterType="Integer">
+		SELECT c_id classId,c_grade grade,c_major major,c_name className
+		FROM class
+		WHERE c_id = #{id};
+	</select>
+	<delete id="deleteBanji" parameterType="String">
+		DELETE FROM class
+		WHERE c_id = #{id};
+	</delete>
+	<update id="updateBanji" parameterType="com.neuedu.examsys.domain.Banji">
+		UPDATE class
+		SET c_name = #{className},
+			c_grade = #{grade},
+			c_major = #{major} 
+		WHERE c_id = #{classId};
+	</update>
+</mapper>
