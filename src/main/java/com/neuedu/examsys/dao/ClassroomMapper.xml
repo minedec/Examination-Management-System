@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neuedu.examsys.dao.ClassroomMapper">
+	
+	<insert id="insertClassroom" parameterType="Classroom" >
+		INSERT INTO classroom(cr_id,cr_name)
+		VALUES(#{classroomId},#{classroomName});
+	</insert>
+	<select id="queryClassroom" resultType="Classroom">
+		SELECT cr_id classroomId,cr_name classroomName
+		FROM classroom
+		<where>
+			<if test="classId!=null and classId!=0">
+				and cr_name = #{classroomName}
+			</if>
+			<if test="className!=null and className!=''">
+				and cr_id = #{classroomId}
+			</if>
+		</where>
+	</select>
+	<select id="selectClassroom" resultType="Classroom" parameterType="Integer">
+		SELECT cr_id classroomId,cr_name classroomName
+		FROM classroom
+		WHERE cr_id = #{id};
+	</select>
+	<delete id="deleteClassroom" parameterType="Integer">
+		DELETE FROM classroom
+		WHERE cr_id = #{id};
+	</delete>
+	<update id="updateClassroom" parameterType="Classroom">
+		UPDATE classroom
+		SET cr_name = #{classroomName}
+		WHERE cr_id = #{classroomId};
+	</update>
+</mapper>

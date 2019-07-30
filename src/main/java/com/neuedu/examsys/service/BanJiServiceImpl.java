@@ -3,18 +3,18 @@ package com.neuedu.examsys.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.neuedu.examsys.dao.BanJiMapper;
+import com.neuedu.examsys.dao.BanjiMapper;
 
 @Service
 public class BanJiServiceImpl implements BanJiService {
 	
 	@Autowired
-	private BanJiMapper mapper;
+	private BanjiMapper mapper;
 
 	@Override
 	public void delete(Integer bjid) {
 		System.out.println("Trigger Service");
-		mapper.deleteBanJi(bjid);
+		mapper.deleteBanji(bjid);
 	}
 	
 	

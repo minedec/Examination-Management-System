@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- author: jjd
+	 time: 2019/7/29 9:46 -->
+
+
+<mapper namespace="com.neuedu.examsys.dao.AccountMapper">
+	
+	<!-- 通过ID查询用户 -->
+	<select id="queryAccountById" parameterType="string" resultMap="accountMap">
+		SELECT *
+		FROM account
+		WHERE a_id = #{id};
+	</select>
+	
+	<!-- 通过角色查询用户 -->
+	<select id="queryAccountByRole" resultMap="accountMap">
+		SELECT *
+		FROM account
+		WHERE a_role = #{role}
+	</select>
+	
+	<!-- 插入新账户 -->
+	<insert id="insertAccount" parameterType="com.neuedu.examsys.domain.Account">
+		INSERT INTO account(a_id, a_pwd, a_role)
+		VALUES(#{id}, #{pwd}, #{role})
+	</insert>
+	
+	<!-- 删除账户 -->
+	<delete id="deleteAccount" parameterType="string">
+		DELETE FROM account
+		WHERE a_id = #{id}
+	</delete>
+	
+	<!-- 修改账户密码 -->
+	<update id="modifyAccountPwdById">
+		UPDATE account
+		SET a_pwd = #{arg1}
+		WHERE a_id = #{arg0}
+	</update>
+	
+	<!-- 修改账户角色 -->
+	<update id="modifyAccountRoleById" >
+		UPDATE account
+		SET a_role = #{arg1}
+		WHERE a_id = #{arg0}
+	</update>
+	
+	<resultMap type="com.neuedu.examsys.domain.Account" id="accountMap">
+		<id column="a_id" property="id"/>
+		<result property="pwd" column="a_pwd"/>
+		<result property="role" column="a_role"/>
+	</resultMap>
+	
+	
+</mapper>

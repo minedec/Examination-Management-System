@@ -9,9 +9,9 @@ import java.util.Map;
  *
  */
 public enum Role {
-	ADMINISTRATOR("administrator","管理员"),
-	STUDENT("student","学生"),
-	TEACHER("teacher","老师");
+	ADMINISTRATOR("ADMINISTRATOR","管理员"),
+	STUDENT("STUDENT","学生"),
+	TEACHER("TEACHER","老师");
 	
 	private String key;
 	private String value;

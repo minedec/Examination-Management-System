@@ -11,14 +11,14 @@ import com.neuedu.examsys.service.LoginService;
 public class LoginController {
 	
 	@Autowired
-	private LoginService loginservice;
+	private LoginService loginService;
 	
 	@PostMapping("/login")
 	@ResponseBody
 	public String login(String accountId, String accountPwd) {
 		System.out.println("controller receive:" + accountId);
 		try {
-			if(loginservice.getRole(accountId, accountPwd) == null) {	
+			if(loginService.getRole(accountId, accountPwd) == null) {	
 				return "false";
 			} else {
 				return "true";

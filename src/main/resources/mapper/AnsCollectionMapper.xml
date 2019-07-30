@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 学生回答数据操作的XML文件 
+	 author：jjd
+	 date：2019/7/30 -->
+<mapper namespace="com.neuedu.examsys.dao.AnsCollectionMapper">	 
+	 <!-- 插入学生回答记录 -->
+	 <sql id="insertKey">
+	 	<trim suffixOverrides=",">
+	 		<if test="id!=null">
+	 			id,
+	 		</if>
+	 		<if test="id!=null">
+	 			student_id,
+	 		</if>
+	 		<if test="id!=null">
+	 			paper_id,
+	 		</if>
+	 		<if test="id!=null">
+	 			exam_id,
+	 		</if>
+	 		<if test="id!=null">
+	 			question_id,
+	 		</if>
+	 		<!-- 判断是选择回答还是主观回答  -->
+	 		<if test="id!=null and option!=null">
+	 			q_option,
+	 		</if>
+	 		<if test="id!=null and content!=null">
+	 			q_content,
+	 		</if>
+	 		<if test="id!=null and isCorrect!=null">
+	 			q_iscorrect,
+	 		</if>
+	 		<if test="id != null and score != -1">
+	 			q_score,
+	 		</if>
+	 		<if test="id!=null">
+	 			datetime,
+	 		</if>
+	 	</trim>
+	 </sql>
+	 
+	 <sql id="insertValue">
+	 	<trim suffixOverrides=",">
+	 		<if test="id!=null">
+	 			#{id},
+	 		</if>
+	 		<if test="id!=null">
+	 			#{studentId},
+	 		</if>
+	 		<if test="id!=null">
+	 			#{paperId},
+	 		</if>
+	 		<if test="id!=null">
+	 		 	#{examId},
+	 		</if>
+	 		<if test="id!=null">
+	 			#{questionId},
+	 		</if>
+	 		<!-- 判断是选择回答还是主观回答  -->
+	 		<if test="id!=null and option!=null">
+	 			#{option},
+	 		</if>
+	 		<if test="id!=null and content!=null">
+	 			#{content},
+	 		</if>
+	 		<if test="id!=null and isCorrect!=null">
+	 			#{isCorrect},
+	 		</if>
+	 		<if test="id != null and score != -1">
+	 			#{score},
+	 		</if>
+	 		<if test="id!=null">
+	 			#{dateTime},
+	 		</if>
+	 	</trim>
+	 </sql>
+	 
+	 <insert id="insertAns" parameterType="com.neuedu.examsys.domain.AnsCollection">
+	 	INSERT INTO ans_collection(<include refid="insertKey" />)
+	 	VALUES (<include refid="insertValue" />)
+	 </insert>
+	 
+	 <!-- 更新成绩 -->
+	 <update id="updateAnsScore" parameterType="com.neuedu.examsys.domain.AnsCollection">
+		UPDATE ans_collection
+		SET q_score = #{score}, q_documenteer=#{documenteer}
+		WHERE student_id = #{studentId} 
+				AND exam_id=#{examId} 
+				AND paper_id=#{paperId} 
+				AND question_id=#{questionId} 
+	</update> 
+	
+	<!-- 查询某题分数 -->
+	<select id="queryScore" parameterType="com.neuedu.examsys.domain.AnsCollection" resultType="int">
+		SELECT q_score
+		FROM ans_collection
+		WHERE student_id = #{studentId} 
+				AND exam_id=#{examId} 
+				AND paper_id=#{paperId} 
+				AND question_id=#{questionId} 
+	</select>
+	
+	<!-- 查询某张卷所有题目分数 -->
+	<select id="queryScores" parameterType="com.neuedu.examsys.domain.AnsCollection" resultType="map">
+		SELECT question_id, q_score
+		FROM ans_collection
+		WHERE student_id = #{studentId} 
+				AND exam_id=#{examId} 
+				AND paper_id=#{paperId} 
+	</select>
+</mapper>

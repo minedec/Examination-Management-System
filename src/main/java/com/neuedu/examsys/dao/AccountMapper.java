@@ -1,22 +1,19 @@
-package com.neuedu.examsys.service;
+package com.neuedu.examsys.dao;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 
 import com.neuedu.examsys.domain.Account;
 import com.neuedu.examsys.domain.Role;
 
-public interface LoginService {
-	
-	/**
-	 * 获取该账户ID的角色
-	 * @param id 账户id
-	 * @param pwd 账户密码
-	 * @return 该id对应的角色，如果id错误或密码错误，返回null
-	 * @throws Exception 
-	 */
-	Role getRole(String id, String pwd) throws Exception;
-	
-	
+/**
+ * 账户数据交互接口
+ * @author jjd
+ *
+ */
+@Mapper
+public interface AccountMapper {
 	/**
 	 * 通过ID查找账户
 	 * @param id ID
@@ -62,4 +59,5 @@ public interface LoginService {
 	 * @throws Exception
 	 */
 	void modifyAccountRoleById(String id, Role newRole) throws Exception;
+	
 }
