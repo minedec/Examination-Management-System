@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neuedu.examsys.dao.CourseMapper">
+	
+	<insert id="insertCourse" parameterType="Course" >
+		INSERT INTO classroom(course_id,course_name,course_major,course_academy,course_credit)
+		VALUES(#{courseId},#{courseName},#{courseMajor},#{courseAcademy},#{courseCredit});
+	</insert>
+	<select id="queryCourse" resultType="Course">
+		SELECT course_id courseId,course_name courseName,course_major courseMajor,course_academy courseAcademy,course_credit courseCredit
+		FROM course
+	</select>
+	<select id="selectCourse" resultType="Course" parameterType="String">
+		SELECT course_id courseId,course_name courseName,course_major courseMajor,course_academy courseAcademy,course_credit courseCredit
+		FROM course
+		WHERE course_id = #{id};
+	</select>
+	<delete id="deleteCourse" parameterType="String">
+		DELETE FROM course
+		WHERE course_id = #{id};
+	</delete>
+	<update id="updateCourse" parameterType="Course">
+		UPDATE course
+		SET course_name = #{courseName},
+			course_major = #{courseMajor},
+			course_academy = #{courseAcademy},
+			course_credit = #{courseCredit}
+		WHERE course_id = #{courseId};
+	</update>
+</mapper>
