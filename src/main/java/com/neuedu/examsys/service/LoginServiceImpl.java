@@ -3,7 +3,7 @@ package com.neuedu.examsys.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.neuedu.examsys.dao.LoginMapper;
+import com.neuedu.examsys.dao.AccountMapper;
 import com.neuedu.examsys.domain.Account;
 import com.neuedu.examsys.domain.Role;
 
@@ -11,7 +11,7 @@ import com.neuedu.examsys.domain.Role;
 public class LoginServiceImpl implements LoginService {
 
 	@Autowired
-	private LoginMapper loginmapper;
+	private AccountMapper loginmapper;
 	
 	@Override
 	public Role getRole(String id, String pwd) throws Exception {

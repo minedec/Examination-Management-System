@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 time: 2019/7/29 9:46 -->
 
 
-<mapper namespace="com.neuedu.examsys.dao.LoginMapper">
+<mapper namespace="com.neuedu.examsys.dao.AccountMapper">
 	<select id="queryAccountById" parameterType="string" resultMap="accountMap">
 		SELECT *
 		FROM account
