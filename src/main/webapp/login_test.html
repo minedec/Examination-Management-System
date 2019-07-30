@@ -67,9 +67,9 @@
                     <div align="left">
                         <select id="account-role" name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm "
                             style="width:60px;">
-                            <option value="student">学生</option>
-                            <option value="teacher">老师</option>
-                            <option value="admin">教务</option>
+                            <option value="STUDENT">学生</option>
+                            <option value="TEACHER">老师</option>
+                            <option value="ADMINISTRATOR">教务</option>
                         </select>
                     </div>
                     <div class="btnn">
@@ -101,16 +101,11 @@
                var name = $("#account-id").val();
                var pwd = $("#account-pwd").val();
                var role = $("#account-role option:selected").val();
-               console.log(name);
-               console.log(pwd);
-               console.log(role);
                if(name=="") {
                    alert("账户不能为空");
                    return;
                }
                else {
-            	   var data = '{"accountId":"' + name + '"}'; 
-            	   console.log(data);
                    $.ajax({
                        type:'post',
                        url:'login',
@@ -121,15 +116,21 @@
                        },
                        success:function(data) {
                            if (data == "true") {
-                               alert("succ");
-                               console.log("true");
+                               if(role == "ADMINISTRATOR") {
+                                   alert("管理员,欢迎登陆")
+                                   
+                               } else if(role == "STUDENT") {
+                                   alert("学生,欢迎登陆");
+                                   window.location.replace("stu_index_test.html");
+                               } else if (role == "TEACHER") {
+                                   alert("老师,欢迎登陆")
+                               }
                            } else {
-                               alert("fail");
-                               console.log("false");
+                               alert("账号密码或身份错误,请重新输入!");
                            }
                        },
                        error:function(data) {
-                           alert("kjlj");
+                           return;
                        }
                    })
                }

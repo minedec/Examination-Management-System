@@ -16,16 +16,17 @@ public class LoginWebMvcConfigurerAdapter implements WebMvcConfigurer {
 	//无法排除login页
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**")
-		//.excludePathPatterns("**/login")	
-		.excludePathPatterns("**/login_test.html");
+//		registry.addInterceptor(new LoginInterceptor())
+//		.excludePathPatterns("/exsys/login_test.html", "/exsys/img/**", "/exsys/css/**")
+//		.addPathPatterns("/**");
+//		//.excludePathPatterns("**/login")	
 		WebMvcConfigurer.super.addInterceptors(registry);
 	}
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/static/**").addResourceLocations("calsspath:/static/");
-		registry.addResourceHandler("/templates/**").addResourceLocations("classpath:/templates");
+//		registry.addResourceHandler("/js/**").addResourceLocations("classpath:/js/");
+//		registry.addResourceHandler("/css/**").addResourceLocations("classpath:/css/");
 		WebMvcConfigurer.super.addResourceHandlers(registry);
 	}
 	
