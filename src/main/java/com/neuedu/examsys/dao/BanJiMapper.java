@@ -1,35 +1,11 @@
 package com.neuedu.examsys.dao;
-
 import java.util.List;
+import com.neuedu.examsys.domain.Banji;
 
-import org.apache.ibatis.annotations.Mapper;
-
-import com.neuedu.examsys.domain.BanJi;
-
-@Mapper
-public interface BanJiMapper {
-	
-	/**
-	 * Insert class info to class table
-	 * 
-	 * @param banji class need to insert
-	 */
-	void insertBanJi(BanJi banji);
-	
-	/**
-	 * Query class
-	 * @return List of all classes
-	 */
-	List<BanJi> queryBanJi(BanJi banji);
-	
-	/**
-	 * Query class by id
-	 * @param cid class id
-	 * @return List of class of cid
-	 */
-	//List<BanJi> queryBanJiById(Integer cid);
-	
-	void deleteBanJi(Integer cid);
-	
-	void updateBanJi(BanJi banji);
+public interface BanjiMapper {
+	public void insertBanji(Banji bj);
+	public List<Banji> queryBanji();
+	public List<Banji> selectBanji(Integer id);
+	public void deleteBanji(Integer id);
+	public void updateBanji(Banji bj);
 }

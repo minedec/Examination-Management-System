@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neuedu.examsys.dao.TeacherMapper">
+	
+	<insert id="insertTeacher" parameterType="Teacher" >
+		INSERT INTO teacher(t_id,t_icon,t_name,t_sex,t_nation,t_email,t_identity,t_address,t_phone)
+		VALUES(#{teacherId},#{teacherIcon},#{teacherName},#{teacherSex},#{teacherNation},#{teacherEmail},#{teacherIdentity},#{teacherAddress},#{teacherPhone});
+	</insert>
+	<select id="queryTeacher" resultType="Teacher">
+		SELECT t_id teacherId,t_icon teacherIcon,t_name teacherName,t_sex teacherSex,t_nation teacherNation,t_email teacherEmail,t_identity teacherIdentity,t_address teacherAddress,t_phone teacherPhone
+		FROM teacher
+	</select>
+	<select id="selectTeacher" resultType="Teacher" parameterType="Integer">
+		SELECT t_id teacherId,t_icon teacherIcon,t_name teacherName,t_sex teacherSex,t_nation teacherNation,t_email teacherEmail,t_identity teacherIdentity,t_address teacherAddress,t_phone teacherPhone
+		FROM teacher
+		WHERE t_id = #{id};
+	</select>
+	<delete id="deleteTeacher" parameterType="String">
+		DELETE FROM teacher
+		WHERE t_id = #{id};
+	</delete>
+	<update id="updateTeacher" parameterType="Teacher">
+		UPDATE teacher
+		SET	t_icon = #{teacherIcon},
+			t_name = #{teacherName},
+			t_sex = #{teacherSex},
+			t_nation = #{teacherNation},
+			t_email = #{teacherEmail},
+			t_identity = #{teacherIdentity},
+			t_address = #{teacherAddress},
+			t_phone = #{teacherPhone}
+		WHERE t_id = #{teacherId};
+	</update>
+</mapper>

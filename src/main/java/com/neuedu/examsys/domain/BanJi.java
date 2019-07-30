@@ -1,42 +1,37 @@
 package com.neuedu.examsys.domain;
 
-public class BanJi {
-	private Integer classId;
-	private String className;
-	
-	public Integer getClassId() {
+public class Banji {
+	String classId; //班级编号
+	String className; //班级名称
+	String grade; //年级
+	String major; //专业
+	public String getClassId() {
 		return classId;
 	}
-	
-	public void setClassId(Integer classId) {
+	public void setClassId(String classId) {
 		this.classId = classId;
 	}
-	
 	public String getClassName() {
 		return className;
 	}
-	
 	public void setClassName(String className) {
 		this.className = className;
 	}
-
-	public BanJi() {
-		super();
-		// TODO Auto-generated constructor stub
+	public String getGrade() {
+		return grade;
 	}
-
-	public BanJi(Integer classId, String className) {
-		super();
-		this.classId = classId;
-		this.className = className;
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
-
+	public String getMajor() {
+		return major;
+	}
+	public void setMajor(String major) {
+		this.major = major;
+	}
 	@Override
 	public String toString() {
-		return "BanJi [classId=" + classId + ", className=" + className + "]";
+		return "Banji [classId=" + classId + ", className=" + className + ", grade=" + grade + ", major=" + major + "]";
 	}
-	
-	
-	
 	
 }
