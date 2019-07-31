@@ -68,10 +68,17 @@ public class LoginController {
 		return (String)session.getAttribute("id");
 	}
 	
+	/**
+	 * 修改密码
+	 * @param id 用户ID
+	 * @param newPwd 新密码
+	 * @return “true”则成功，“false”则失败
+	 */
 	@PostMapping("/modifyPassword")
 	@ResponseBody
 	public String modifyPassword(String id, String newPwd) {
 		try {
+			System.out.println("Received modify password requset, from " + id);
 			loginService.modifyAccountPwdById(id, newPwd);
 		} catch (Exception e) {
 			return "false";
