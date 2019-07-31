@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2019-07-29 15:35:43
+Date: 2019-07-31 10:03:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,8 +30,10 @@ CREATE TABLE `account` (
 -- Records of account
 -- ----------------------------
 INSERT INTO `account` VALUES ('1', '', 'ADMINISTRATOR');
+INSERT INTO `account` VALUES ('11', '110', 'STUDENT');
 INSERT INTO `account` VALUES ('2', '', 'TEACHER');
 INSERT INTO `account` VALUES ('3', '', 'STUDENT');
+INSERT INTO `account` VALUES ('4', '0', 'TEACHER');
 
 -- ----------------------------
 -- Table structure for ans_collection
@@ -40,20 +42,25 @@ DROP TABLE IF EXISTS `ans_collection`;
 CREATE TABLE `ans_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '一条做题记录编号',
   `student_id` varchar(255) NOT NULL,
+  `exam_id` int(11) NOT NULL,
   `paper_id` int(11) NOT NULL COMMENT '试卷ID',
   `question_id` int(255) NOT NULL,
   `q_option` varchar(255) DEFAULT NULL,
   `q_content` varchar(255) DEFAULT NULL COMMENT '回答的内容',
   `q_iscorrect` varchar(255) NOT NULL COMMENT '是否正确',
-  `q_score` int(11) NOT NULL COMMENT '该回答的得分',
+  `q_score` int(11) DEFAULT '-1' COMMENT '该回答的得分',
   `q_documenteer` varchar(255) DEFAULT NULL COMMENT '批改人编号',
   `datetime` datetime NOT NULL COMMENT '批改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='回答记录列表，记录学生回答问题的记录，每一条记录记录了学生id，试题id，试卷id和回答内容等';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='回答记录列表，记录学生回答问题的记录，每一条记录记录了学生id，试题id，试卷id和回答内容等';
 
 -- ----------------------------
 -- Records of ans_collection
 -- ----------------------------
+INSERT INTO `ans_collection` VALUES ('1', '1', '3', '3', '3', 'A', null, 'true', '5', null, '2019-12-30 10:20:15');
+INSERT INTO `ans_collection` VALUES ('2', '1', '3', '3', '4', 'A', null, 'true', '5', null, '2019-12-30 10:20:15');
+INSERT INTO `ans_collection` VALUES ('3', '1', '3', '3', '5', 'A', null, 'true', '5', null, '2019-12-30 10:20:15');
+INSERT INTO `ans_collection` VALUES ('4', '1', '3', '3', '6', 'A', null, 'true', '5', null, '2019-12-30 10:20:15');
 
 -- ----------------------------
 -- Table structure for class
@@ -235,12 +242,13 @@ CREATE TABLE `student` (
   `s_class` varchar(20) NOT NULL,
   `s_academy` varchar(50) DEFAULT NULL,
   `s_major` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`s_id`,`s_class`)
+  PRIMARY KEY (`s_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student
 -- ----------------------------
+INSERT INTO `student` VALUES ('11', null, '离开家', 'MALE', '打发打发', '12312414', '32132131', '7777', '75757', '234', '对方的', '得分');
 
 -- ----------------------------
 -- Table structure for student_course
