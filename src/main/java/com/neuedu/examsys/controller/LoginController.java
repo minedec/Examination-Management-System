@@ -28,6 +28,13 @@ public class LoginController {
 	@Autowired
 	private StudentService studentService;
 	
+	/**
+	 * 用户登陆，判断用户是否合法
+	 * @param request 请求
+	 * @param accountId 用户ID
+	 * @param accountPwd 用户密码
+	 * @return 如果合法，返回true，session中写入用户ID和角色
+	 */
 	@PostMapping("/login")
 	@ResponseBody
 	public String login(HttpServletRequest request, String accountId, String accountPwd) {
@@ -48,12 +55,35 @@ public class LoginController {
 		return "false";
 	}
 	
+	/**
+	 * 获得Session中用户ID
+	 * @param request 请求
+	 * @return 用户ID
+	 */
 	@GetMapping("/session")
 	@ResponseBody
 	public String getSession(HttpServletRequest request) {
 		System.out.println("Received get session requset, from " + request.getSession().getAttribute("id"));
 		HttpSession session = request.getSession();
 		return (String)session.getAttribute("id");
+	}
+	
+	/**
+	 * 修改密码
+	 * @param id 用户ID
+	 * @param newPwd 新密码
+	 * @return “true”则成功，“false”则失败
+	 */
+	@PostMapping("/modifyPassword")
+	@ResponseBody
+	public String modifyPassword(String id, String newPwd) {
+		try {
+			System.out.println("Received modify password requset, from " + id);
+			loginService.modifyAccountPwdById(id, newPwd);
+		} catch (Exception e) {
+			return "false";
+		}
+		return "true";
 	}
 	
 }

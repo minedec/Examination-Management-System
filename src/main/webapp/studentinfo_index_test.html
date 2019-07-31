@@ -373,7 +373,7 @@
                                                         aria-describedby="emailHelp" /></td>
                                                 <td><input id="stu-phone" type="text" class="form-control" /></td>
                                                 <td><input id="stu-address" type="text" class="form-control" /></td>
-                                                <td><button id="modify-btn" type="button" class="btn btn-primary form-control">修改</button></td>
+                                                <td><button id="modify-btn" type="button" class="btn btn-primary">修改</button></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -421,12 +421,14 @@
         </script> -->
         <script>
             var userId;
-            <!-- 获取session的账户id和角色 -->
+            
+            //页面启动时加载表格
             $(document).ready(function() {
                 userId = getSession(); //执行函数
                 fillPersonalInfo(userId);
             });
             
+            <!-- 获取session的账户id和角色 -->
             function getSession() {
                 var userId;
                 $.ajax({
@@ -450,7 +452,6 @@
                 $.ajax({
                     type: "post",
                     url: "student/info",
-                    dateType:"json",
                     data: {
                         "studentId": userId
                     },
@@ -474,9 +475,37 @@
                     }
                 })
             }
-        </script>
-        <script>
+            
             <!-- 修改个人信息事件 -->
+            $("#modify-btn").click(function() {
+                if (confirm("确定修改信息?")) {
+ 　　             //点击确定后操作
+　　              modifyUserInfo();
+                }
+            });
+            
+            //修改个人信息
+            function modifyUserInfo() {
+                var email = $("#stu-email").val();
+                var phone = $("#stu-phone").val();
+                var address = $("#stu-address").val();
+                $.ajax({
+                    type: "post",
+                    url: "student/modifyinfo",
+                    data: {
+                        "studentId": userId,
+                        "studentEmail":email,
+                        "studentPhone":phone,
+                        "studentAddress":address
+                    },
+                    success: function() {
+                        fillPersonalInfo();
+                    },
+                    error: function() {
+                        alert("出现异常，请重试")
+                    }
+                })
+            }
         </script>
     </body>
 </html>

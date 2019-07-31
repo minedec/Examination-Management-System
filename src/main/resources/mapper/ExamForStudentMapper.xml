@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neuedu.examsys.dao.ExamForStudentMapper">
+	<!-- 考试类映射 -->
+	<resultMap id="examMap" type="Exams">
+		<id column="e_id" property="examID" />
+		<result column="e_title" property="examTitle" />
+		<result column="e_semester" property="examSemester" />
+		<result column="e_online" property="examOnline" />
+		<result column="e_type" property="examType" />
+		<result column="e_paperid" property="examPaperId" />
+		<result column="e_course" property="examCourse" />
+		<result column="e_datetime" property="examDatetime" />
+	</resultMap>
+	
+	<!-- 查询所有在当前时间之后学生的考试安排 -->
+	<select id="queryExamsAfterNow" parameterType="string" resultMap="examMap">
+		SELECT e.* 
+		FROM exams e, exam_collection ec
+		WHERE  ec.exam_id = e.e_id
+			  AND ec.student_id = #{studentId}
+			  AND unix_timestamp(e.e_datetime) &gt; unix_timestamp(NOW());
+	</select>
+
+	<!-- 查询所有在当前时间之前学生的考试安排 -->
+	<select id="queryExamsBeforeNow" parameterType="string" resultMap="examMap">
+		SELECT e.* 
+		FROM exams e, exam_collection ec
+		WHERE  ec.exam_id = e.e_id
+			  AND ec.student_id = #{studentId}
+			  AND unix_timestamp(e.e_datetime)  &lt; unix_timestamp(NOW());
+	</select>
+
+</mapper>

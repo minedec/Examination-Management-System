@@ -5,6 +5,15 @@ import java.sql.Date;
 //考试类，用于考试安排与查询	7.29 16:30 zjy
 
 public class Exams {
+	private ExamOnline examOnline;
+	private ExamType examType;
+	private Integer examID;
+	private String examTitle;
+	private String examDatetime; //需要把datetimr转换成String类型 rs.getTimestamp("insert_dt")
+	private String examSemester;
+	private Integer examPaperId;
+	private String examCourse;
+	
 	public Exams() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -21,12 +30,14 @@ public class Exams {
 		this.examPaperId = examPaperId;
 		this.examCourse = examCourse;
 	}
+	
 	@Override
 	public String toString() {
 		return "Exams [examOnline=" + examOnline + ", examType=" + examType + ", examID=" + examID + ", examTitle="
 				+ examTitle + ", examDatetime=" + examDatetime + ", examSemester=" + examSemester + ", examPaperId="
 				+ examPaperId + ", examCourse=" + examCourse + "]";
 	}
+	
 	public ExamOnline getExamOnline() {
 		return examOnline;
 	}
@@ -75,13 +86,6 @@ public class Exams {
 	public void setExamCourse(String examCourse) {
 		this.examCourse = examCourse;
 	}
-	private ExamOnline examOnline;
-	private ExamType examType;
-	private Integer examID;
-	private String examTitle;
-	private String examDatetime; //需要把datetimr转换成String类型 rs.getTimestamp("insert_dt")
-	private String examSemester;
-	private Integer examPaperId;
-	private String examCourse;
+	
 	
 }
