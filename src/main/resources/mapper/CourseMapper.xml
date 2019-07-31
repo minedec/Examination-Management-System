@@ -10,11 +10,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES(#{courseId},#{courseName},#{courseMajor},#{courseAcademy},#{courseCredit});
 	</insert>
 	<select id="queryCourse" resultType="Course">
-		SELECT course_id courseId,course_name courseName,course_major courseMajor,course_academy courseAcademy,course_credit courseCredit
+		SELECT *
 		FROM course
 	</select>
 	<select id="selectCourse" resultType="Course" parameterType="String">
-		SELECT course_id courseId,course_name courseName,course_major courseMajor,course_academy courseAcademy,course_credit courseCredit
+		SELECT *
 		FROM course
 		WHERE course_id = #{id};
 	</select>

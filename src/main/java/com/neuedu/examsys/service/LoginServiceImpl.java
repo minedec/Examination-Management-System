@@ -17,7 +17,6 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Override
 	public Role getRole(String id, String pwd) throws Exception {
-		System.out.println("service" + id);
 		Account ac = accountMapper.queryAccountById(id);
 		System.out.println(ac);
 		if(ac != null && ac.getPwd().equals(pwd)) {
