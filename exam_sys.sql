@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2019-07-31 10:03:53
+Date: 2019-07-31 10:47:50
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,7 +30,7 @@ CREATE TABLE `account` (
 -- Records of account
 -- ----------------------------
 INSERT INTO `account` VALUES ('1', '', 'ADMINISTRATOR');
-INSERT INTO `account` VALUES ('11', '110', 'STUDENT');
+INSERT INTO `account` VALUES ('11', '123', 'STUDENT');
 INSERT INTO `account` VALUES ('2', '', 'TEACHER');
 INSERT INTO `account` VALUES ('3', '', 'STUDENT');
 INSERT INTO `account` VALUES ('4', '0', 'TEACHER');
@@ -114,7 +114,7 @@ CREATE TABLE `course` (
 -- ----------------------------
 DROP TABLE IF EXISTS `exams`;
 CREATE TABLE `exams` (
-  `e_id` int(11) NOT NULL,
+  `e_id` int(11) NOT NULL AUTO_INCREMENT,
   `e_title` varchar(50) NOT NULL,
   `e_semester` varchar(20) NOT NULL COMMENT '学期',
   `e_online` enum('ONLINE','OFFLINE') NOT NULL COMMENT '线上/线下',
@@ -123,11 +123,12 @@ CREATE TABLE `exams` (
   `e_course` varchar(255) NOT NULL,
   `e_datetime` datetime NOT NULL,
   PRIMARY KEY (`e_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of exams
 -- ----------------------------
+INSERT INTO `exams` VALUES ('1', '秋季机构', '2019 Fall', 'ONLINE', 'NORMAL', '1', 'SE', '2019-08-02 10:45:54');
 
 -- ----------------------------
 -- Table structure for exam_collection
