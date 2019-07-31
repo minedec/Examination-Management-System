@@ -27,4 +27,19 @@ public class StudentController {
 	public Student getStudentInfo(String studentId) {
 		return studentService.selectStudent(studentId);
 	}
+	
+	@PostMapping("/modifyinfo")
+	@ResponseBody
+	public void modifyStudentPersonalInfo(
+			String studentId,
+			String studentEmail,
+			String studentPhone,
+			String studentAddress) {
+		System.out.println("Reveice modify student info rquest..., from " + studentId);
+		Student s = studentService.selectStudent(studentId);
+		s.setStudentEmail(studentEmail);
+		s.setStudentPhone(studentPhone);
+		s.setStudentAddress(studentAddress);
+		studentService.updateStudent(s);
+	}
 }
