@@ -15,5 +15,7 @@ public interface OptionMapper {
 	
 	void updateOption(Option option);
 	
-	List<Question> selectOption();
+	List<Option> selectOption();
+	
+	List<Option> selectOptionByQuestionId(int questionId);
 }

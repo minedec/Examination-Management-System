@@ -1,5 +1,8 @@
 package com.neuedu.examsys.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.neuedu.examsys.domain.Exams;
+import com.neuedu.examsys.domain.Question;
+import com.neuedu.examsys.domain.QuestionType;
 import com.neuedu.examsys.service.ExamForStudentService;
+import com.neuedu.examsys.service.PaperQuestionService;
 
 /**
  * 
@@ -23,6 +29,8 @@ public class ExamController {
 	
 	@Autowired
 	private ExamForStudentService examForStuService;
+	@Autowired
+	private PaperQuestionService pqService;
 	
 	@GetMapping("/checkTime")
 	@ResponseBody
@@ -43,6 +51,40 @@ public class ExamController {
 			return null;
 		}
 		return examForStuService.queryExamById((int)session.getAttribute("examId"));
+	}
+	
+	@GetMapping("/questions")
+	@ResponseBody
+	public List<Question> getPaperQuestions(HttpServletRequest request, Integer paperId) {
+		List<Question> ql = pqService.queryQuestions(paperId);
+		if(ql.isEmpty()) {
+			return null;
+		}
+		List<Question> tmp = new ArrayList<Question>();
+		int single = 0;
+		int multi = 0;
+		int judge = 0;
+		int fill = 0;
+		int topic = 0;
+		for(Question q : ql) {
+			if(q.getType().equals(QuestionType.SINGLE)) {
+				tmp.add(single, q);
+				single++;
+			} else if(q.getType().equals(QuestionType.MULTIPLE)) {
+				tmp.add(single+multi, q);
+				multi++;
+			} else if(q.getType().equals(QuestionType.JUDGE)) {
+				tmp.add(single+multi+judge, q);
+				judge++;
+			} else if(q.getType().equals(QuestionType.FILL)) {
+				tmp.add(single+multi+judge+fill, q);
+				fill++;
+			} else if(q.getType().equals(QuestionType.SINGLE)) {
+				tmp.add(single+multi+judge+fill+topic, q);
+				topic++;
+			}
+		}
+		return tmp;
 	}
 	
 }

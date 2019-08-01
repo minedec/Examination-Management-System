@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="q_author" property="author"/>
 	</resultMap>
 	
-	<select id="queryQuestions" parameterType="int">
+	<select id="queryQuestions" parameterType="int" resultMap="paperQuestionMap">
 		SELECT * 
 		FROM questions
 		WHERE q_id IN (SELECT question_id 
