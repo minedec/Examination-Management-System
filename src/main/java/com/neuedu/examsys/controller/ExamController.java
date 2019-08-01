@@ -35,7 +35,7 @@ public class ExamController {
 		}
 	}
 	
-	@GetMapping("/info")
+	@GetMapping("/sessioninfo")
 	@ResponseBody
 	public Exams getSessionExamsInfo(HttpServletRequest request) {
 		HttpSession session = request.getSession();
