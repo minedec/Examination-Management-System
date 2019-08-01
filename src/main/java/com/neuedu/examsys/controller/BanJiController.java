@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.neuedu.examsys.service.BanJiService;
+import com.neuedu.examsys.service.BanjiService;
 
 @Controller //普通cotroller
 @RequestMapping("/banji")
 //@RestController //所有返回值都是json
-public class BanJiController {
+public class BanjiController {
 	
 	@Autowired
-	private BanJiService banjiservice;
+	private BanjiService banjiservice;
 	
 	@GetMapping("/delete")
 	public String deleteBanJi(Integer bid) {

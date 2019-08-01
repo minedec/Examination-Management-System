@@ -16,7 +16,6 @@ public interface LoginService {
 	 */
 	Role getRole(String id, String pwd) throws Exception;
 	
-	
 	/**
 	 * 通过ID查找账户
 	 * @param id ID
