@@ -22,7 +22,7 @@ public class CourseController {
 	@ResponseBody
 	public String queryCourseName(String id) {
 		List<Course> cl = courseService.selectCourse(id);
-		if (cl != null) {
+		if (!cl.isEmpty()) {
 			return cl.get(0).getCourseName();
 		}
 		return null;

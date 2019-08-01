@@ -20,6 +20,22 @@
         <title></title>
     </head>
     <body>
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="vendor/chart.js/Chart.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="js/demo/chart-area-demo.js"></script>
+        <script src="js/demo/chart-pie-demo.js"></script>
         <div id="wrapper">
             <!-- container fluid -->
             <div class="container-fluid mt-3">
@@ -32,11 +48,11 @@
                                     <div class="row">
                                         <div class="col-md-1">
                                             <div class="row">
-                                             <a class="font-weight-bold">1</a>
-                                            <a class="font-weight-bold">单选</a>
+                                                <a class="font-weight-bold">1</a>
+                                                <a class="font-weight-bold">单选</a>
                                             </div>
                                             <div class="row">
-                                                <a class="text-info">5分</a> 
+                                                <a class="text-info">5分</a>
                                             </div>
                                         </div>
                                         <div class="col-md-11">
@@ -164,7 +180,7 @@
                                                     简述软件构造理论
                                                 </div>
                                                 <div id="pic" class="row">
-                            
+
                                                 </div>
                                                 <hr />
                                                 <div id="fill" class="form-group">
@@ -262,7 +278,7 @@
                             <!-- 倒计时部分开始 -->
                             <div class="card shadow-sm mb-3">
                                 <div class="card-body">
-                                    <span class="text-lg text-danger">1:09:00</span>
+                                    <span id="timer" class="text-lg text-danger"></span>
                                 </div>
                             </div>
                             <!-- 倒计时部分结束 -->
@@ -272,19 +288,248 @@
                                     <a class="h6 font-weight-bold text-gray-700">个人信息</a>
                                 </div>
                                 <div class="card-body">
-                                    <p class="h6  text-gray-700">姓名: 张三</a>
-                                        <p class="h6  text-gray-700">学号: 117xxxx</a>
-                                            <p class="h6  text-gray-700">科目: 软件构造</a>
+                                    <p id="stu-name" class="h6  text-gray-700"></a>
+                                        <p id="stu-id" class="h6  text-gray-700"></a>
+                                            <p id="course-name" class="h6  text-gray-700"></a>
                                 </div>
                             </div>
                             <!-- 个人信息部分结束 -->
                             <!-- 交卷部分开始 -->
-                            <button class="btn btn-primary btn-block">提交</button>
+                            <button class="btn btn-primary btn-block" onclick="handUp()">提交</button>
                             <!-- 交卷部分结束 -->
                         </div>
                         <!-- 进度和个人信息面板结束-->
                     </div>
                 </div>
             </div>
+            <script>
+                var stuInfo;
+                var examInfo;
+
+                $(document).ready(function() {
+                    loadUser();
+                    loadPaper();
+                });
+
+                function loadUser() {
+                    $.ajax({
+                        type: "get",
+                        url: "student/sessioninfo",
+                        async: false,
+                        success: function(data) {
+                            stuInfo = data;
+                        },
+                        error: function(data) {
+
+                        }
+                    })
+                    $.ajax({
+                        type: "get",
+                        url: "exam/sessioninfo",
+                        async: false,
+                        success: function(data) {
+                            examInfo = data;
+                        },
+                        error: function(data) {
+
+                        }
+                    })
+                    $("#stu-name").html("姓名: " + stuInfo.studentName);
+                    $("#stu-id").html("学号: " + stuInfo.studentId);
+                    $("#course-name").html("科目: " + getCourseName(examInfo.examCourse));
+
+                    var startTime = Date.parse(new Date(examInfo.examDatetime));
+                    var endTime = Date.parse(new Date(examInfo.examEndtime));
+                    var intSecond = Math.floor((endTime - startTime) / 1000);
+                    setTimer(intSecond)
+                }
+
+                function loadPaper() {
+                    var questionList;
+                    $.ajax({
+                        type: "get",
+                        url: "exam/questions",
+                        async: false,
+                        data: {
+                            "paperId": examInfo.examPaperId
+                        },
+                        success: function(data) {
+                            questionList = data;
+                            alert(questionList[0].type)
+                        },
+                        error: function(data) {
+                            alert("出现异常，请重试")
+                        }
+                    })
+                    //建立模板
+                    buildFormWork(questionList);
+                    //填充模板
+                    fillFormWork(questionList);
+                }
+                
+                function buildFormWork(questionList) {
+                    var singleFrame = 
+                    <div id="single-choice">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <div class="row">
+                                            <a class="font-weight-bold">1</a>
+                                            <a class="font-weight-bold">单选</a>
+                                        </div>
+                                        <div class="row">
+                                            <a class="text-info">5分</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <div id="text" class="row">
+                                            判断下列说法正确的是
+                                        </div>
+                                        <div id="pic" class="row">
+                    
+                                        </div>
+                                        <div id="option">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="exampleRadios"
+                                                    id="exampleRadios1" value="option1" checked>
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                    A: 软件构造是一门文科课程
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="exampleRadios"
+                                                    id="exampleRadios2" value="option2">
+                                                <label class="form-check-label" for="exampleRadios2">
+                                                    B: 老师叫王忠秀
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="exampleRadios"
+                                                    id="exampleRadios1" value="option1" checked>
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                    C: 软件构造主要语言是C#
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="exampleRadios"
+                                                    id="exampleRadios1" value="option1" checked>
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                    D: 软件构造很难
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><div id="single-choice">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <div class="row">
+                                                <a class="font-weight-bold">1</a>
+                                                <a class="font-weight-bold">单选</a>
+                                            </div>
+                                            <div class="row">
+                                                <a class="text-info">5分</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div id="text" class="row">
+                                                判断下列说法正确的是
+                                            </div>
+                                            <div id="pic" class="row">
+
+                                            </div>
+                                            <div id="option">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="exampleRadios"
+                                                        id="exampleRadios1" value="option1" checked>
+                                                    <label class="form-check-label" for="exampleRadios1">
+                                                        A: 软件构造是一门文科课程
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="exampleRadios"
+                                                        id="exampleRadios2" value="option2">
+                                                    <label class="form-check-label" for="exampleRadios2">
+                                                        B: 老师叫王忠秀
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="exampleRadios"
+                                                        id="exampleRadios1" value="option1" checked>
+                                                    <label class="form-check-label" for="exampleRadios1">
+                                                        C: 软件构造主要语言是C#
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="exampleRadios"
+                                                        id="exampleRadios1" value="option1" checked>
+                                                    <label class="form-check-label" for="exampleRadios1">
+                                                        D: 软件构造很难
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    var multiFrame = 
+                    var judgeFrame = 
+                    var fillFrame = 
+                    var topicFrame = 
+                }
+                
+                function fillFormWork(questionList) {
+                    
+                }
+
+                function setTimer(intSecond) {
+                    window.setInterval(function() {
+                        var 
+                            hour = 0,
+                            minute = 0,
+                            second = 0; //时间默认值        
+                        if (intSecond > 0) {
+                            hour = Math.floor(intSecond / (60 * 60));
+                            minute = Math.floor(intSecond / 60) - (hour * 60);
+                            second = Math.floor(intSecond) - (hour * 60 * 60) - (minute *
+                                60);
+                        } else {
+                            //到点提交
+                            handUp();
+                        }
+                        $('#timer').html(hour + ":" + minute + ":" + second);
+                        intSecond--;
+                    }, 1000);
+                }
+
+                function getCourseName(courseId) {
+                    var name;
+                    $.ajax({
+                        type: "get",
+                        async: false,
+                        url: "course/getname",
+                        data: {
+                            "id": courseId,
+                        },
+                        success: function(data) {
+                            name = data;
+                        },
+                        error: function(data) {
+                            alert("出现异常，请重试")
+                        }
+                    })
+                    return name;
+                }
+                
+                function handUp() {
+                    
+                }
+            </script>
     </body>
 </html>

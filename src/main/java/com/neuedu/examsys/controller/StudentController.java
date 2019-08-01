@@ -41,7 +41,7 @@ public class StudentController {
 		return studentService.selectStudent(studentId);
 	}
 	
-	@GetMapping("/sessionInfo")
+	@GetMapping("/sessioninfo")
 	@ResponseBody
 	public Student getSessionStudentInfo(HttpServletRequest request) {
 		HttpSession session = request.getSession();
