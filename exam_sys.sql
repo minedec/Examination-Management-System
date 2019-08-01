@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2019-08-01 09:24:32
+Date: 2019-07-29 15:35:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,10 +30,8 @@ CREATE TABLE `account` (
 -- Records of account
 -- ----------------------------
 INSERT INTO `account` VALUES ('1', '', 'ADMINISTRATOR');
-INSERT INTO `account` VALUES ('11', '123', 'STUDENT');
 INSERT INTO `account` VALUES ('2', '', 'TEACHER');
 INSERT INTO `account` VALUES ('3', '', 'STUDENT');
-INSERT INTO `account` VALUES ('4', '0', 'TEACHER');
 
 -- ----------------------------
 -- Table structure for ans_collection
@@ -42,25 +40,20 @@ DROP TABLE IF EXISTS `ans_collection`;
 CREATE TABLE `ans_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '一条做题记录编号',
   `student_id` varchar(255) NOT NULL,
-  `exam_id` int(11) NOT NULL,
   `paper_id` int(11) NOT NULL COMMENT '试卷ID',
   `question_id` int(255) NOT NULL,
   `q_option` varchar(255) DEFAULT NULL,
   `q_content` varchar(255) DEFAULT NULL COMMENT '回答的内容',
   `q_iscorrect` varchar(255) NOT NULL COMMENT '是否正确',
-  `q_score` int(11) DEFAULT '-1' COMMENT '该回答的得分',
+  `q_score` int(11) NOT NULL COMMENT '该回答的得分',
   `q_documenteer` varchar(255) DEFAULT NULL COMMENT '批改人编号',
   `datetime` datetime NOT NULL COMMENT '批改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='回答记录列表，记录学生回答问题的记录，每一条记录记录了学生id，试题id，试卷id和回答内容等';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='回答记录列表，记录学生回答问题的记录，每一条记录记录了学生id，试题id，试卷id和回答内容等';
 
 -- ----------------------------
 -- Records of ans_collection
 -- ----------------------------
-INSERT INTO `ans_collection` VALUES ('1', '1', '3', '3', '3', 'A', null, 'true', '5', null, '2019-12-30 10:20:15');
-INSERT INTO `ans_collection` VALUES ('2', '1', '3', '3', '4', 'A', null, 'true', '5', null, '2019-12-30 10:20:15');
-INSERT INTO `ans_collection` VALUES ('3', '1', '3', '3', '5', 'A', null, 'true', '5', null, '2019-12-30 10:20:15');
-INSERT INTO `ans_collection` VALUES ('4', '1', '3', '3', '6', 'A', null, 'true', '5', null, '2019-12-30 10:20:15');
 
 -- ----------------------------
 -- Table structure for class
@@ -108,33 +101,26 @@ CREATE TABLE `course` (
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES ('1', '软件构造', 'iij', 'ijlj', '3.2');
-INSERT INTO `course` VALUES ('2', '计算机系统', 'ijo', 'kjl', '5.5');
-INSERT INTO `course` VALUES ('3', '马克思概论', 'err', 'erer', '34');
 
 -- ----------------------------
 -- Table structure for exams
 -- ----------------------------
 DROP TABLE IF EXISTS `exams`;
 CREATE TABLE `exams` (
-  `e_id` int(11) NOT NULL AUTO_INCREMENT,
+  `e_id` int(11) NOT NULL,
   `e_title` varchar(50) NOT NULL,
   `e_semester` varchar(20) NOT NULL COMMENT '学期',
   `e_online` enum('ONLINE','OFFLINE') NOT NULL COMMENT '线上/线下',
   `e_type` enum('NORMAL','LATER','MAKEUP') NOT NULL COMMENT '正常/补考/缓考',
   `e_paperid` int(11) NOT NULL,
-  `e_course` varchar(255) NOT NULL COMMENT '课程ID',
+  `e_course` varchar(255) NOT NULL,
   `e_datetime` datetime NOT NULL,
-  `e_endtime` datetime NOT NULL COMMENT '结束时间点',
   PRIMARY KEY (`e_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of exams
 -- ----------------------------
-INSERT INTO `exams` VALUES ('1', '秋季软件考试', '2019 Fall', 'ONLINE', 'NORMAL', '1', '1', '2019-07-31 10:45:00', '2019-08-02 11:45:00');
-INSERT INTO `exams` VALUES ('2', '秋季计算机', '2019 Fall', 'OFFLINE', 'NORMAL', '2', '2', '2019-08-02 13:44:00', '2019-08-02 14:44:00');
-INSERT INTO `exams` VALUES ('3', '线下类似皇帝', 'lljl', 'OFFLINE', 'NORMAL', '1', '2', '2019-07-02 13:46:00', '2019-07-02 14:46:00');
 
 -- ----------------------------
 -- Table structure for exam_collection
@@ -150,14 +136,11 @@ CREATE TABLE `exam_collection` (
   `result` enum('UNPASS','PASS') NOT NULL COMMENT '考试的结果，通过未通过',
   `score` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='考试与人员的关系表，保存某个人与某场考试的关系';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='考试与人员的关系表，保存某个人与某场考试的关系';
 
 -- ----------------------------
 -- Records of exam_collection
 -- ----------------------------
-INSERT INTO `exam_collection` VALUES ('1', '11', '1', '1', '1', 'UNSTART', 'UNPASS', '0');
-INSERT INTO `exam_collection` VALUES ('2', '11', '2', '2', '2', 'UNSTART', 'UNPASS', '0');
-INSERT INTO `exam_collection` VALUES ('3', '11', '1', '1', '3', 'UNSTART', 'PASS', null);
 
 -- ----------------------------
 -- Table structure for options
@@ -190,13 +173,11 @@ CREATE TABLE `papers` (
   `p_course` varchar(20) NOT NULL COMMENT 'id形式',
   `p_major` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`p_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of papers
 -- ----------------------------
-INSERT INTO `papers` VALUES ('1', 'eee', '2019-07-18', 'efe', '3', '45', '1', 'tge');
-INSERT INTO `papers` VALUES ('2', '二分法', '2019-08-03', '违法', '34', '342', '2', 'fef');
 
 -- ----------------------------
 -- Table structure for paper_question
@@ -254,13 +235,12 @@ CREATE TABLE `student` (
   `s_class` varchar(20) NOT NULL,
   `s_academy` varchar(50) DEFAULT NULL,
   `s_major` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`s_id`)
+  PRIMARY KEY (`s_id`,`s_class`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES ('11', null, '离开家', 'MALE', '打发打发', '12312414', '32132131', '7777', '75757', '234', '对方的', '得分');
 
 -- ----------------------------
 -- Table structure for student_course
@@ -303,12 +283,11 @@ CREATE TABLE `teacher` (
 -- ----------------------------
 DROP TABLE IF EXISTS `teacher_course`;
 CREATE TABLE `teacher_course` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `t_id` varchar(255) NOT NULL,
   `t_name` varchar(255) NOT NULL,
   `c_id` varchar(255) NOT NULL,
   `c_name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`t_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

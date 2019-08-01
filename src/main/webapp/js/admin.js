@@ -66,5 +66,32 @@ function adduser() {
         }
     });
     }
+}
 
+function addexam() {
+    var title = $("#title").val();
+    var semester = $("#semester").val();
+    var type = $("#type option:selected").val();
+    var online = $("#online option:selected").val();
+    var course = $("#course").val();
+    var paperid = $("#paperid").val();
+    var date1 = $("#date1").val();
+    var date2 = $("#date2").val();
+    var exam = '{"examTitle":"'+title+'",'+'"examPaperId":'+paperid+','+'"examSemester":"'+semester+'",'+'"examType":"'+type+'",'+'"examOnline":"'+online+'",'+'"examCourse":'+course+','+'"examDatetime":"'+date1+'",'+'"examEndtime":"'+date2+'"}';
+    $.ajax({
+        //接口地址
+        type: "POST",
+        data: exam,
+        dataType: "json",//服务器返回的数据类型
+        contentType: "application/json",//post请求的信息格式
+        url: "admin/exam/addexam" ,
+        success: function (data) {
+            alert("保存成功");
+        },
+        error: function (data) {
+            alert("保存成功！");
+            //请求异常的回调
+            // modals.warn("网络访问失败，请稍后重试!");
+        }
+    });
 }
