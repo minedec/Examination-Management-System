@@ -61,53 +61,16 @@
                                 </div>
                                 <div class="card-body">
                                     <!-- 进度条部分开始 -->
-                                    <h4 class="small font-weight-bold">答题进度<span class="float-right">60%</span></h4>
+                                    <!-- <h4 class="small font-weight-bold">答题进度<span class="float-right">60%</span></h4>
                                     <div class="progress progress-sm mb-2">
                                         <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="60"
                                             aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                    </div> -->
                                     <!-- 进度条部分结束 -->
-                                    <hr />
+                                    <!-- <hr /> -->
                                     <!-- 选项块显示是否做完部分开始 -->
-                                    <div id="block-progress">
-                                        <div class="row align-middle">
-                                            <div class="col-md-2 col-sm-4 mb-2">
-                                                <!-- 此处超链接可以跳转题目 -->
-                                                <a href="#" class="btn-sm btn-primary btn-circle">
-                                                    1
-                                                </a>
-                                            </div>
-                                            <div class="col-md-2 col-sm-4">
-                                                <a href="#" class="btn-sm btn-primary btn-circle">
-                                                    2
-                                                </a>
-                                            </div>
-                                            <div class="col-md-2 col-sm-4">
-                                                <a href="#" class="btn-sm btn-primary btn-circle">
-                                                    3
-                                                </a>
-                                            </div>
-                                            <div class="col-md-2 col-sm-4">
-                                                <a href="#" class="btn-sm btn-primary btn-circle">
-                                                    4
-                                                </a>
-                                            </div>
-                                            <div class="col-md-2 col-sm-4">
-                                                <a href="#" class="btn-sm btn-primary-outline btn-circle">
-                                                    5
-                                                </a>
-                                            </div>
-                                            <div class="col-md-2 col-sm-4">
-                                                <a href="#" class="btn-sm btn-primary-outline btn-circle">
-                                                    6
-                                                </a>
-                                            </div>
-                                            <div class="col-md-2 col-sm-4">
-                                                <a href="#" class="btn-sm btn-primary-outline btn-circle">
-                                                    7
-                                                </a>
-                                            </div>
-
+                                    <div>
+                                        <div id="block-progress" class="row align-middle">
                                         </div>
                                     </div>
                                 </div>
@@ -143,7 +106,8 @@
             <script>
                 var stuInfo;
                 var examInfo;
-
+                var questionList;
+                
                 $(document).ready(function() {
                     loadUser();
                     loadPaper();
@@ -172,18 +136,6 @@
 
                         }
                     })
-                    $("#stu-name").html("姓名: " + stuInfo.studentName);
-                    $("#stu-id").html("学号: " + stuInfo.studentId);
-                    $("#course-name").html("科目: " + getCourseName(examInfo.examCourse));
-
-                    var startTime = Date.parse(new Date(examInfo.examDatetime));
-                    var endTime = Date.parse(new Date(examInfo.examEndtime));
-                    var intSecond = Math.floor((endTime - startTime) / 1000);
-                    setTimer(intSecond)
-                }
-
-                function loadPaper() {
-                    var questionList;
                     $.ajax({
                         type: "get",
                         url: "exam/questions",
@@ -198,13 +150,24 @@
                             alert("出现异常，请重试")
                         }
                     })
+                    
+                    $("#stu-name").html("姓名: " + stuInfo.studentName);
+                    $("#stu-id").html("学号: " + stuInfo.studentId);
+                    $("#course-name").html("科目: " + getCourseName(examInfo.examCourse));
+
+                    var startTime = Date.parse(new Date(examInfo.examDatetime));
+                    var endTime = Date.parse(new Date(examInfo.examEndtime));
+                    var intSecond = Math.floor((endTime - startTime) / 1000);
+                    setTimer(intSecond)
+                    setBlockProgress()
+                }
+                
+                
+                
+                function loadPaper() {
                     //建立模板
                     buildFormWork(questionList);
                 }
-                
-                var judgeFrame; 
-                var fillFrame; 
-                var topicFrame; 
                 
                 function buildFormWork(questionList) {
                     //填充模板,以题目序号为索引编辑ID,用于之后的填充
@@ -258,12 +221,12 @@
                             alert("出现异常，请重试")
                         }
                     })
-                    
+                    var qindex = i;
                     var optionText = "";
                     for (var i = 0; i < optionList.length; i++) {
                         optionText = optionText + "<div class=\"form-check\">"
                             + "<input class=\"form-check-input\" type=\"radio\" name=\"exampleRadios\""
-                            +    "id=\"" + question.questionId + "#" + optionList[i].optionId +"\" value=\"option1\">"
+                            +    "id=\"" + question.questionId + "#" + optionList[i].optionId +"\" value=\"option1\" onchange=\"Trigger("+qindex+")\">"
                             + "<label class=\"form-check-label\" for=\""+ question.questionId + "#" + optionList[i].optionId +"\">"
                             +    optionList[i].content
                             +"</label>"
@@ -295,12 +258,12 @@
                             alert("出现异常，请重试")
                         }
                     })
-                    
+                    var qindex = i;
                     var optionText = "";
                     for (var i = 0; i < optionList.length; i++) {
                         optionText = optionText + "<div class=\"form-check\">"
                             + "<input class=\"form-check-input\" type=\"checkbox\""
-                            +    "id=\"" + question.questionId + "#" + optionList[i].optionId +"\" value=\"option1\">"
+                            +    "id=\"" + question.questionId + "#" + optionList[i].optionId +"\" value=\"option1\" onchange=\"Trigger("+qindex+")\">"
                             + "<label class=\"form-check-label\" for=\""+ question.questionId + "#" + optionList[i].optionId +"\">"
                             +    optionList[i].content
                             +"</label>"
@@ -321,14 +284,14 @@
                     var optionText = "";
                         optionText = optionText + "<div class=\"form-check\">"
                             + "<input class=\"form-check-input\" type=\"radio\" name=\"exampleRadios\""
-                            +    "id=\"" + question.questionId + "\" value=\"option1\">"
+                            +    "id=\"" + question.questionId + "\" value=\"option1\" onchange=\"Trigger("+i+")\">"
                             + "<label class=\"form-check-label\" for=\""+ question.questionId +"\">"
                             +    "对"
                             +"</label>"
                             + "</div>"
                             optionText = optionText + "<div class=\"form-check\">"
                                 + "<input class=\"form-check-input\" type=\"radio\" name=\"exampleRadios\""
-                                +    "id=\"" + question.questionId + "\" value=\"option1\">"
+                                +    "id=\"" + question.questionId + "\" value=\"option1\" onchange=\"Trigger("+i+")\">"
                                 + "<label class=\"form-check-label\" for=\""+ question.questionId +"\">"
                                 +    "错"
                                 +"</label>"
@@ -344,7 +307,7 @@
                     var contentText = "<div id=\"content" + i+ "\" class=\"row\">" //content
                                     +    question.content
                                     +    "</div>";
-                    var optionText = "<hr /><input id=\"" + question.questionId + "\" type=\"text\" class=\"form-control\">";
+                    var optionText = "<hr /><input id=\"" + question.questionId + "\" type=\"text\" class=\"form-control\" onblur=\"Trigger("+i+")\">";
                     return singleFrame1 + indexText + typeText + singleFrame2 + scoreText + singleFrame3 + contentText + optionText + singleFrame4;
                 }
                 
@@ -355,7 +318,7 @@
                     var contentText = "<div id=\"content" + i+ "\" class=\"row\">" //content
                                     +    question.content
                                     +    "</div>";
-                    var optionText = "<hr /><textarea id=\"" + question.questionId + "\" class=\"form-control\" rows=\"8\"></textarea>";
+                    var optionText = "<hr /><textarea id=\"" + question.questionId + "\" class=\"form-control\" rows=\"8\" onblur=\"Trigger("+i+")\"></textarea>";
                     return singleFrame1 + indexText + typeText + singleFrame2 + scoreText + singleFrame3 + contentText + optionText + singleFrame4;
                 }
                 
@@ -378,6 +341,18 @@
                         intSecond--;
                     }, 1000);
                 }
+                
+                function setBlockProgress() {
+                    var length = questionList.length;
+                    for(var i = 0; i < length ; i++) {
+                        $("#block-progress").append(
+                            "<div class=\"col-md-2 col-sm-4\">"
+                            +    "<a id=\"block" + i + "\" href=\"#\" class=\"btn-sm btn-primary-outline btn-circle\">"
+                            +       (i+1) 
+                            +    "</a></div>"
+                        );
+                    }
+                }
 
                 function getCourseName(courseId) {
                     var name;
@@ -398,8 +373,14 @@
                     return name;
                 }
                 
+                function Trigger(i) {
+                    $("#block" + i).removeClass("btn-primary-outline").addClass("btn-primary");
+                }
+                
                 function handUp() {
-                    
+                    if(confirm("确认提交？提交后不可修改")) {
+                        
+                    }
                 }
             </script>
     </body>

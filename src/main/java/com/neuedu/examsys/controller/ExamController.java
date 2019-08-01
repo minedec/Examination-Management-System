@@ -9,12 +9,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.neuedu.examsys.domain.AnsCollection;
 import com.neuedu.examsys.domain.Exams;
 import com.neuedu.examsys.domain.Question;
 import com.neuedu.examsys.domain.QuestionType;
+import com.neuedu.examsys.service.AnsCollectionService;
 import com.neuedu.examsys.service.ExamForStudentService;
 import com.neuedu.examsys.service.PaperQuestionService;
 
@@ -31,6 +34,8 @@ public class ExamController {
 	private ExamForStudentService examForStuService;
 	@Autowired
 	private PaperQuestionService pqService;
+	@Autowired
+	private AnsCollectionService acService;
 	
 	@GetMapping("/checkTime")
 	@ResponseBody
@@ -85,6 +90,12 @@ public class ExamController {
 			}
 		}
 		return tmp;
+	}
+	
+	@PostMapping("/insertAns")
+	@ResponseBody
+	public boolean insertAns(HttpServletRequest request, List<AnsCollection> anslist) {
+		
 	}
 	
 }
