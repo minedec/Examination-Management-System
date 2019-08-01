@@ -52,336 +52,479 @@
                             </div>
                         </footer>
                     </div>
-                        <!-- 试卷面板结束-->
-                        <!-- 进度和个人信息面板开始,悬浮面板-->
-                        <div style="position:fixed;top:20px;right:5px" class="col-md-3 col-sm-5">
-                            <div class="card shadow-sm mb-md-3">
-                                <div class="card-header">
-                                    <a class="h6 font-weight-bold text-gray-700">答题进度</a>
-                                </div>
-                                <div class="card-body">
-                                    <!-- 进度条部分开始 -->
-                                    <!-- <h4 class="small font-weight-bold">答题进度<span class="float-right">60%</span></h4>
+                    <!-- 试卷面板结束-->
+                    <!-- 进度和个人信息面板开始,悬浮面板-->
+                    <div style="position:fixed;top:20px;right:5px" class="col-md-3 col-sm-5">
+                        <div class="card shadow-sm mb-md-3">
+                            <div class="card-header">
+                                <a class="h6 font-weight-bold text-gray-700">答题进度</a>
+                            </div>
+                            <div class="card-body">
+                                <!-- 进度条部分开始 -->
+                                <!-- <h4 class="small font-weight-bold">答题进度<span class="float-right">60%</span></h4>
                                     <div class="progress progress-sm mb-2">
                                         <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="60"
                                             aria-valuemin="0" aria-valuemax="100"></div>
                                     </div> -->
-                                    <!-- 进度条部分结束 -->
-                                    <!-- <hr /> -->
-                                    <!-- 选项块显示是否做完部分开始 -->
-                                    <div>
-                                        <div id="block-progress" class="row align-middle">
-                                        </div>
+                                <!-- 进度条部分结束 -->
+                                <!-- <hr /> -->
+                                <!-- 选项块显示是否做完部分开始 -->
+                                <div>
+                                    <div id="block-progress" class="row align-middle">
                                     </div>
                                 </div>
                             </div>
-                            <!-- 选项块显示是否做完部分结束 -->
-                            <!-- 倒计时部分开始 -->
-                            <div class="card shadow-sm mb-3">
-                                <div class="card-body">
-                                    <span id="timer" class="text-lg text-danger"></span>
-                                </div>
-                            </div>
-                            <!-- 倒计时部分结束 -->
-                            <!-- 个人信息部分开始 -->
-                            <div class="card shadow-sm mb-3">
-                                <div class="card-header">
-                                    <a class="h6 font-weight-bold text-gray-700">个人信息</a>
-                                </div>
-                                <div class="card-body">
-                                    <p id="stu-name" class="h6  text-gray-700"></a>
-                                        <p id="stu-id" class="h6  text-gray-700"></a>
-                                            <p id="course-name" class="h6  text-gray-700"></a>
-                                </div>
-                            </div>
-                            <!-- 个人信息部分结束 -->
-                            <!-- 交卷部分开始 -->
-                            <button class="btn btn-primary btn-block" onclick="handUp()">提交</button>
-                            <!-- 交卷部分结束 -->
                         </div>
-                        <!-- 进度和个人信息面板结束-->
+                        <!-- 选项块显示是否做完部分结束 -->
+                        <!-- 倒计时部分开始 -->
+                        <div class="card shadow-sm mb-3">
+                            <div class="card-body">
+                                <span id="timer" class="text-lg text-danger"></span>
+                            </div>
+                        </div>
+                        <!-- 倒计时部分结束 -->
+                        <!-- 个人信息部分开始 -->
+                        <div class="card shadow-sm mb-3">
+                            <div class="card-header">
+                                <a class="h6 font-weight-bold text-gray-700">个人信息</a>
+                            </div>
+                            <div class="card-body">
+                                <p id="stu-name" class="h6  text-gray-700"></a>
+                                    <p id="stu-id" class="h6  text-gray-700"></a>
+                                        <p id="course-name" class="h6  text-gray-700"></a>
+                            </div>
+                        </div>
+                        <!-- 个人信息部分结束 -->
+                        <!-- 交卷部分开始 -->
+                        <button class="btn btn-primary btn-block" onclick="handUp()">提交</button>
+                        <!-- 交卷部分结束 -->
                     </div>
+                    <!-- 进度和个人信息面板结束-->
                 </div>
             </div>
-            <script>
-                var stuInfo;
-                var examInfo;
-                var questionList;
-                
-                $(document).ready(function() {
-                    loadUser();
-                    loadPaper();
-                });
+        </div>
+        <script>
+            var stuInfo;
+            var examInfo;
+            var questionList;
+            var qoMap = {}; //选择题和选项对象的映射
 
-                function loadUser() {
-                    $.ajax({
-                        type: "get",
-                        url: "student/sessioninfo",
-                        async: false,
-                        success: function(data) {
-                            stuInfo = data;
-                        },
-                        error: function(data) {
+            $(document).ready(function() {
+                loadUser();
+                loadPaper();
+            });
 
-                        }
-                    })
-                    $.ajax({
-                        type: "get",
-                        url: "exam/sessioninfo",
-                        async: false,
-                        success: function(data) {
-                            examInfo = data;
-                        },
-                        error: function(data) {
+            function loadUser() {
+                $.ajax({
+                    type: "get",
+                    url: "student/sessioninfo",
+                    async: false,
+                    success: function(data) {
+                        stuInfo = data;
+                    },
+                    error: function(data) {
 
-                        }
-                    })
-                    $.ajax({
-                        type: "get",
-                        url: "exam/questions",
-                        async: false,
-                        data: {
-                            "paperId": examInfo.examPaperId
-                        },
-                        success: function(data) {
-                            questionList = data;
-                        },
-                        error: function(data) {
-                            alert("出现异常，请重试")
-                        }
-                    })
-                    
-                    $("#stu-name").html("姓名: " + stuInfo.studentName);
-                    $("#stu-id").html("学号: " + stuInfo.studentId);
-                    $("#course-name").html("科目: " + getCourseName(examInfo.examCourse));
+                    }
+                })
+                $.ajax({
+                    type: "get",
+                    url: "exam/sessioninfo",
+                    async: false,
+                    success: function(data) {
+                        examInfo = data;
+                    },
+                    error: function(data) {
 
-                    var startTime = Date.parse(new Date(examInfo.examDatetime));
-                    var endTime = Date.parse(new Date(examInfo.examEndtime));
-                    var intSecond = Math.floor((endTime - startTime) / 1000);
-                    setTimer(intSecond)
-                    setBlockProgress()
+                    }
+                })
+                $.ajax({
+                    type: "get",
+                    url: "exam/questions",
+                    async: false,
+                    data: {
+                        "paperId": examInfo.examPaperId
+                    },
+                    success: function(data) {
+                        questionList = data;
+                    },
+                    error: function(data) {
+                        alert("出现异常，请重试")
+                    }
+                })
+
+                $("#stu-name").html("姓名: " + stuInfo.studentName);
+                $("#stu-id").html("学号: " + stuInfo.studentId);
+                $("#course-name").html("科目: " + getCourseName(examInfo.examCourse));
+
+                var startTime = Date.parse(new Date(examInfo.examDatetime));
+                var endTime = Date.parse(new Date(examInfo.examEndtime));
+                var intSecond = Math.floor((endTime - startTime) / 1000);
+                setTimer(intSecond)
+                setBlockProgress()
+            }
+
+
+
+            function loadPaper() {
+                //建立模板
+                buildFormWork(questionList);
+            }
+
+            function buildFormWork(questionList) {
+                //填充模板,以题目序号为索引编辑ID,用于之后的填充
+                var length = questionList.length;
+                for (var i = 0; i < length; i++) {
+                    if (questionList[i].type == "SINGLE") {
+                        $("#paper-content").append(fillSingle(i, questionList[i]));
+                    } else if (questionList[i].type == "MULTIPLE") {
+                        $("#paper-content").append(fillMultiple(i, questionList[i]));
+                    } else if (questionList[i].type == "JUDGE") {
+                        $("#paper-content").append(fillJudge(i, questionList[i]));
+                    } else if (questionList[i].type == "FILL") {
+                        $("#paper-content").append(fillFill(i, questionList[i]));
+                    } else if (questionList[i].type == "TOPIC") {
+                        $("#paper-content").append(fillTopic(i, questionList[i]));
+                    }
                 }
-                
-                
-                
-                function loadPaper() {
-                    //建立模板
-                    buildFormWork(questionList);
+            }
+
+            //frame1 + index + type + 2 + score + 3 + content + option + 4
+            var singleFrame1 =
+                "<div class=\"card mb-3\">" +
+                "<div class=\"card-body\">" +
+                "<div class=\"row\">" +
+                "<div class=\"col-md-1\">" +
+                "<div class=\"row\">";
+            var singleFrame2 =
+                "</div><div class=\"row\">";
+            var singleFrame3 = "</div></div><div class=\"col-md-11\">";
+            var singleFrame4 = "</div></div></div></div>";
+
+            function fillSingle(i, question) {
+                var indexText = "<a class=\"font-weight-bold\">" + (i + 1) + "</a>";
+                var typeText = "<a class=\"font-weight-bold\">单选</a>";
+                var scoreText = "<a class=\"text-info\">" + question.score + "分</a>";
+                var contentText = "<div id=\"content" + i + "\" class=\"row\">" //content
+                    +
+                    question.content +
+                    "</div>";
+                var optionList;
+                $.ajax({
+                    type: "get",
+                    url: "question/options",
+                    async: false,
+                    data: {
+                        "questionId": question.questionId
+                    },
+                    success: function(data) {
+                        optionList = data;
+                        qoMap[question.questionId] = optionList;
+                    },
+                    error: function(data) {
+                        alert("出现异常，请重试")
+                    }
+                })
+                var qindex = i;
+                var optionText = "";
+                for (var i = 0; i < optionList.length; i++) {
+                    optionText = optionText + "<div class=\"form-check\">" +
+                        "<input class=\"form-check-input\" type=\"radio\" name=\"" + question.questionId + "\"" +
+                        "id=\"" + question.questionId + "#" + optionList[i].optionId + "\" value=\"" + optionList[i].optionId +
+                        "\" onchange=\"Trigger(" + qindex + ")\">" +
+                        "<label class=\"form-check-label\" for=\"" + question.questionId + "#" + optionList[i].optionId +
+                        "\">" +
+                        optionList[i].content +
+                        "</label>" +
+                        "</div>"
                 }
-                
-                function buildFormWork(questionList) {
-                    //填充模板,以题目序号为索引编辑ID,用于之后的填充
-                    var length = questionList.length;
-                    for(var i = 0; i < length; i++) {
-                        if(questionList[i].type == "SINGLE") {
-                            $("#paper-content").append(fillSingle(i, questionList[i]));
-                        } else if(questionList[i].type == "MULTIPLE") {
-                            $("#paper-content").append(fillMultiple(i, questionList[i]));
-                        } else if(questionList[i].type == "JUDGE") {
-                            $("#paper-content").append(fillJudge(i, questionList[i]));
-                        } else if(questionList[i].type == "FILL") {
-                            $("#paper-content").append(fillFill(i, questionList[i]));
+
+                return singleFrame1 + indexText + typeText + singleFrame2 + scoreText + singleFrame3 + contentText +
+                    optionText + singleFrame4;
+            }
+
+            function fillMultiple(i, question) {
+                var indexText = "<a class=\"font-weight-bold\">" + (i + 1) + "</a>";
+                var typeText = "<a class=\"font-weight-bold\">多选</a>";
+                var scoreText = "<a class=\"text-info\">" + question.score + "分</a>";
+                var contentText = "<div id=\"content" + i + "\" class=\"row\">" //content
+                    +
+                    question.content +
+                    "</div>";
+                var optionList;
+                $.ajax({
+                    type: "get",
+                    url: "question/options",
+                    async: false,
+                    data: {
+                        "questionId": question.questionId
+                    },
+                    success: function(data) {
+                        optionList = data;
+                        qoMap[question.questionId] = optionList;
+
+                    },
+                    error: function(data) {
+                        alert("出现异常，请重试")
+                    }
+                })
+                var qindex = i;
+                var optionText = "";
+                for (var i = 0; i < optionList.length; i++) {
+                    optionText = optionText + "<div class=\"form-check\">" +
+                        "<input class=\"form-check-input\" type=\"checkbox\" name=\"" + question.questionId + "\"" +
+                        "id=\"" + question.questionId + "#" + optionList[i].optionId + "\" value=\"" + optionList[i].optionId +
+                        "\" onchange=\"Trigger(" + qindex + ")\">" +
+                        "<label class=\"form-check-label\" for=\"" + question.questionId + "#" + optionList[i].optionId +
+                        "\">" +
+                        optionList[i].content +
+                        "</label>" +
+                        "</div>"
+                }
+
+                return singleFrame1 + indexText + typeText + singleFrame2 + scoreText + singleFrame3 + contentText +
+                    optionText + singleFrame4;
+            }
+
+            function fillJudge(i, question) {
+                var indexText = "<a class=\"font-weight-bold\">" + (i + 1) + "</a>";
+                var typeText = "<a class=\"font-weight-bold\">判断</a>";
+                var scoreText = "<a class=\"text-info\">" + question.score + "分</a>";
+                var contentText = "<div id=\"content" + i + "\" class=\"row\">" //content
+                    +
+                    question.content +
+                    "</div>";
+
+                var optionText = "";
+                optionText = optionText + "<div class=\"form-check\">" +
+                    "<input class=\"form-check-input\" type=\"radio\" name=\"" + question.questionId + "\"" +
+                    "id=\"" + question.questionId + "t\" value=\"true\" onchange=\"Trigger(" + i + ")\">" +
+                    "<label class=\"form-check-label\" for=\"" + question.questionId + "\">" +
+                    "对" +
+                    "</label>" +
+                    "</div>"
+                optionText = optionText + "<div class=\"form-check\">" +
+                    "<input class=\"form-check-input\" type=\"radio\" name=\"" + question.questionId + "\"" +
+                    "id=\"" + question.questionId + "f\" value=\"false\" onchange=\"Trigger(" + i + ")\">" +
+                    "<label class=\"form-check-label\" for=\"" + question.questionId + "\">" +
+                    "错" +
+                    "</label>" +
+                    "</div>"
+
+                return singleFrame1 + indexText + typeText + singleFrame2 + scoreText + singleFrame3 + contentText +
+                    optionText + singleFrame4;
+            }
+
+            function fillFill(i, question) {
+                var indexText = "<a class=\"font-weight-bold\">" + (i + 1) + "</a>";
+                var typeText = "<a class=\"font-weight-bold\">填空</a>";
+                var scoreText = "<a class=\"text-info\">" + question.score + "分</a>";
+                var contentText = "<div id=\"content" + i + "\" class=\"row\">" //content
+                    +
+                    question.content +
+                    "</div>";
+                var optionText = "<hr /><input id=\"" + question.questionId +
+                    "\" type=\"text\" class=\"form-control\" onblur=\"Trigger(" + i + ")\">";
+                return singleFrame1 + indexText + typeText + singleFrame2 + scoreText + singleFrame3 + contentText +
+                    optionText + singleFrame4;
+            }
+
+            function fillTopic(i, question) {
+                var indexText = "<a class=\"font-weight-bold\">" + (i + 1) + "</a>";
+                var typeText = "<a class=\"font-weight-bold\">主观</a>";
+                var scoreText = "<a class=\"text-info\">" + question.score + "分</a>";
+                var contentText = "<div id=\"content" + i + "\" class=\"row\">" //content
+                    +
+                    question.content +
+                    "</div>";
+                var optionText = "<hr /><textarea id=\"" + question.questionId +
+                    "\" class=\"form-control\" rows=\"8\" onblur=\"Trigger(" + i + ")\"></textarea>";
+                return singleFrame1 + indexText + typeText + singleFrame2 + scoreText + singleFrame3 + contentText +
+                    optionText + singleFrame4;
+            }
+
+            function setTimer(intSecond) {
+                window.setInterval(function() {
+                    var
+                        hour = 0,
+                        minute = 0,
+                        second = 0; //时间默认值        
+                    if (intSecond > 0) {
+                        hour = Math.floor(intSecond / (60 * 60));
+                        minute = Math.floor(intSecond / 60) - (hour * 60);
+                        second = Math.floor(intSecond) - (hour * 60 * 60) - (minute *
+                            60);
+                    } else {
+                        //到点提交
+                        handUp();
+                    }
+                    $('#timer').html(hour + ":" + minute + ":" + second);
+                    intSecond--;
+                }, 1000);
+            }
+
+            function setBlockProgress() {
+                var length = questionList.length;
+                for (var i = 0; i < length; i++) {
+                    $("#block-progress").append(
+                        "<div class=\"col-md-2 col-sm-4\">" +
+                        "<a id=\"block" + i + "\" href=\"#\" class=\"btn-sm btn-primary-outline btn-circle\">" +
+                        (i + 1) +
+                        "</a></div>"
+                    );
+                }
+            }
+
+            function getCourseName(courseId) {
+                var name;
+                $.ajax({
+                    type: "get",
+                    async: false,
+                    url: "course/getname",
+                    data: {
+                        "id": courseId,
+                    },
+                    success: function(data) {
+                        name = data;
+                    },
+                    error: function(data) {
+                        alert("出现异常，请重试")
+                    }
+                })
+                return name;
+            }
+
+            function Trigger(i) {
+                $("#block" + i).removeClass("btn-primary-outline").addClass("btn-primary");
+            }
+
+            function handUp() {
+                if (confirm("确认提交？提交后不可修改")) {
+                    var anslist = [];
+                    for (var i = 0; i < questionList.length; i++) {
+                        if (questionList[i].type == "SINGLE") {
+                            var val = $('input:radio[name=\"' + questionList[i].questionId + '\"]:checked').val();
+                            var ansCo = {};
+                            ansCo.studentId = stuInfo.studentId;
+                            ansCo.paperId = examInfo.examPaperId;
+                            ansCo.examId = examInfo.examID;
+                            ansCo.questionId = questionList[i].questionId;
+                            ansCo.option = val;
+                            ansCo.content = "";
+                            ansCo.isCorrect = getOption(val).iscorrect;
+                            ansCo.score = -1;
+                            ansCo.documenteer = "";
+                            ansCo.dateTime = timeStamp2String(new Date().getTime());
+                            anslist.push(ansCo);
+                        } else if (questionList[i].type == "MULTIPLE") {
+                            $('input[name=\"' + questionList[i].questionId + '\"]:checked').each(function(index, item) {
+                                var ansCo = {};
+                                var val = $(this).val();
+                                ansCo.studentId = stuInfo.studentId;
+                                ansCo.paperId = examInfo.examPaperId;
+                                ansCo.examId = examInfo.examID;
+                                ansCo.questionId = questionList[i].questionId;
+                                ansCo.option = val;
+                                ansCo.content = "";
+                                ansCo.isCorrect = getOption(val).iscorrect;
+                                ansCo.score = -1;
+                                ansCo.documenteer = "";
+                                ansCo.dateTime = timeStamp2String(new Date().getTime());
+                                anslist.push(ansCo);
+                            });
+                        } else if (questionList[i].type == "JUDGE") {
+                            var val = $('input:radio[name=\"' + questionList[i].questionId + '\"]:checked').val();
+                            var ansCo = {};
+                            ansCo.studentId = stuInfo.studentId;
+                            ansCo.paperId = examInfo.examPaperId;
+                            ansCo.examId = examInfo.examID;
+                            ansCo.questionId = questionList[i].questionId;
+                            ansCo.option = "";
+                            ansCo.content = val;
+                            ansCo.isCorrect = "true";
+                            ansCo.score = -1;
+                            ansCo.documenteer = "";
+                            ansCo.dateTime = timeStamp2String(new Date().getTime());
+                            anslist.push(ansCo);
+                        } else if (questionList[i].type == "FILL") {
+                            var val = $('#' + questionList[i].questionId).val();
+                            var ansCo = {};
+                            ansCo.studentId = stuInfo.studentId;
+                            ansCo.paperId = examInfo.examPaperId;
+                            ansCo.examId = examInfo.examID;
+                            ansCo.questionId = questionList[i].questionId;
+                            ansCo.option = "";
+                            ansCo.content = val;
+                            ansCo.isCorrect = "unknow";
+                            ansCo.score = -1;
+                            ansCo.documenteer = "";
+                            ansCo.dateTime = timeStamp2String(new Date().getTime());
+                            anslist.push(ansCo);
                         } else if (questionList[i].type == "TOPIC") {
-                            $("#paper-content").append(fillTopic(i, questionList[i]));
+                            var val = $('#' + questionList[i].questionId).val();
+                            var ansCo = {};
+                            ansCo.studentId = stuInfo.studentId;
+                            ansCo.paperId = examInfo.examPaperId;
+                            ansCo.examId = examInfo.examID;
+                            ansCo.questionId = questionList[i].questionId;
+                            ansCo.option = "";
+                            ansCo.content = val;
+                            ansCo.isCorrect = "unknow";
+                            ansCo.score = -1;
+                            ansCo.documenteer = "";
+                            ansCo.dateTime = timeStamp2String(new Date().getTime());
+                            anslist.push(ansCo);
                         }
                     }
-                }
-                
-                //frame1 + index + type + 2 + score + 3 + content + option + 4
-                var singleFrame1 = 
-                    "<div class=\"card mb-3\">"
-                            +"<div class=\"card-body\">"
-                            +"<div class=\"row\">"
-                            +    "<div class=\"col-md-1\">"
-                            +        "<div class=\"row\">";
-                var singleFrame2 = 
-                    "</div><div class=\"row\">";
-                var singleFrame3 = "</div></div><div class=\"col-md-11\">";
-                var singleFrame4 = "</div></div></div></div>";
-                
-                function fillSingle(i, question) {
-                    var indexText = "<a class=\"font-weight-bold\">" + (i+1) + "</a>";
-                    var typeText = "<a class=\"font-weight-bold\">单选</a>";
-                    var scoreText = "<a class=\"text-info\">" + question.score + "分</a>";
-                    var contentText = "<div id=\"content" + i+ "\" class=\"row\">" //content
-                                    +    question.content
-                                    +    "</div>";
-                    var optionList;
-                     $.ajax({
-                        type: "get",
-                        url: "question/options",
-                        async: false,
-                        data: {
-                            "questionId": question.questionId
-                        },
-                        success: function(data) {
-                            optionList = data;
-                        },
-                        error: function(data) {
-                            alert("出现异常，请重试")
-                        }
-                    })
-                    var qindex = i;
-                    var optionText = "";
-                    for (var i = 0; i < optionList.length; i++) {
-                        optionText = optionText + "<div class=\"form-check\">"
-                            + "<input class=\"form-check-input\" type=\"radio\" name=\"exampleRadios\""
-                            +    "id=\"" + question.questionId + "#" + optionList[i].optionId +"\" value=\"option1\" onchange=\"Trigger("+qindex+")\">"
-                            + "<label class=\"form-check-label\" for=\""+ question.questionId + "#" + optionList[i].optionId +"\">"
-                            +    optionList[i].content
-                            +"</label>"
-                            + "</div>"
-                    }
-                    
-                    return singleFrame1 + indexText + typeText + singleFrame2 + scoreText + singleFrame3 + contentText + optionText + singleFrame4;
-                }
-                
-                function fillMultiple(i, question) {
-                    var indexText = "<a class=\"font-weight-bold\">" + (i+1) + "</a>";
-                    var typeText = "<a class=\"font-weight-bold\">多选</a>";
-                    var scoreText = "<a class=\"text-info\">" + question.score + "分</a>";
-                    var contentText = "<div id=\"content" + i+ "\" class=\"row\">" //content
-                                    +    question.content
-                                    +    "</div>";
-                    var optionList;
-                     $.ajax({
-                        type: "get",
-                        url: "question/options",
-                        async: false,
-                        data: {
-                            "questionId": question.questionId
-                        },
-                        success: function(data) {
-                            optionList = data;
-                        },
-                        error: function(data) {
-                            alert("出现异常，请重试")
-                        }
-                    })
-                    var qindex = i;
-                    var optionText = "";
-                    for (var i = 0; i < optionList.length; i++) {
-                        optionText = optionText + "<div class=\"form-check\">"
-                            + "<input class=\"form-check-input\" type=\"checkbox\""
-                            +    "id=\"" + question.questionId + "#" + optionList[i].optionId +"\" value=\"option1\" onchange=\"Trigger("+qindex+")\">"
-                            + "<label class=\"form-check-label\" for=\""+ question.questionId + "#" + optionList[i].optionId +"\">"
-                            +    optionList[i].content
-                            +"</label>"
-                            + "</div>"
-                    }
-                    
-                    return singleFrame1 + indexText + typeText + singleFrame2 + scoreText + singleFrame3+ contentText + optionText + singleFrame4;
-                }
-                
-                function fillJudge(i, question) {
-                    var indexText = "<a class=\"font-weight-bold\">" + (i+1) + "</a>";
-                    var typeText = "<a class=\"font-weight-bold\">判断</a>";
-                    var scoreText = "<a class=\"text-info\">" + question.score + "分</a>";
-                    var contentText = "<div id=\"content" + i+ "\" class=\"row\">" //content
-                                    +    question.content
-                                    +    "</div>";
-                    
-                    var optionText = "";
-                        optionText = optionText + "<div class=\"form-check\">"
-                            + "<input class=\"form-check-input\" type=\"radio\" name=\"exampleRadios\""
-                            +    "id=\"" + question.questionId + "\" value=\"option1\" onchange=\"Trigger("+i+")\">"
-                            + "<label class=\"form-check-label\" for=\""+ question.questionId +"\">"
-                            +    "对"
-                            +"</label>"
-                            + "</div>"
-                            optionText = optionText + "<div class=\"form-check\">"
-                                + "<input class=\"form-check-input\" type=\"radio\" name=\"exampleRadios\""
-                                +    "id=\"" + question.questionId + "\" value=\"option1\" onchange=\"Trigger("+i+")\">"
-                                + "<label class=\"form-check-label\" for=\""+ question.questionId +"\">"
-                                +    "错"
-                                +"</label>"
-                                + "</div>"
-                    
-                    return singleFrame1 + indexText + typeText + singleFrame2 + scoreText + singleFrame3 + contentText + optionText + singleFrame4;
-                }
-                
-                function fillFill(i, question) {
-                    var indexText = "<a class=\"font-weight-bold\">" + (i+1) + "</a>";
-                    var typeText = "<a class=\"font-weight-bold\">填空</a>";
-                    var scoreText = "<a class=\"text-info\">" + question.score + "分</a>";
-                    var contentText = "<div id=\"content" + i+ "\" class=\"row\">" //content
-                                    +    question.content
-                                    +    "</div>";
-                    var optionText = "<hr /><input id=\"" + question.questionId + "\" type=\"text\" class=\"form-control\" onblur=\"Trigger("+i+")\">";
-                    return singleFrame1 + indexText + typeText + singleFrame2 + scoreText + singleFrame3 + contentText + optionText + singleFrame4;
-                }
-                
-                function fillTopic(i, question) {
-                     var indexText = "<a class=\"font-weight-bold\">" + (i+1) + "</a>";
-                    var typeText = "<a class=\"font-weight-bold\">主观</a>";
-                    var scoreText = "<a class=\"text-info\">" + question.score + "分</a>";
-                    var contentText = "<div id=\"content" + i+ "\" class=\"row\">" //content
-                                    +    question.content
-                                    +    "</div>";
-                    var optionText = "<hr /><textarea id=\"" + question.questionId + "\" class=\"form-control\" rows=\"8\" onblur=\"Trigger("+i+")\"></textarea>";
-                    return singleFrame1 + indexText + typeText + singleFrame2 + scoreText + singleFrame3 + contentText + optionText + singleFrame4;
-                }
-                
-                function setTimer(intSecond) {
-                    window.setInterval(function() {
-                        var 
-                            hour = 0,
-                            minute = 0,
-                            second = 0; //时间默认值        
-                        if (intSecond > 0) {
-                            hour = Math.floor(intSecond / (60 * 60));
-                            minute = Math.floor(intSecond / 60) - (hour * 60);
-                            second = Math.floor(intSecond) - (hour * 60 * 60) - (minute *
-                                60);
-                        } else {
-                            //到点提交
-                            handUp();
-                        }
-                        $('#timer').html(hour + ":" + minute + ":" + second);
-                        intSecond--;
-                    }, 1000);
-                }
-                
-                function setBlockProgress() {
-                    var length = questionList.length;
-                    for(var i = 0; i < length ; i++) {
-                        $("#block-progress").append(
-                            "<div class=\"col-md-2 col-sm-4\">"
-                            +    "<a id=\"block" + i + "\" href=\"#\" class=\"btn-sm btn-primary-outline btn-circle\">"
-                            +       (i+1) 
-                            +    "</a></div>"
-                        );
-                    }
-                }
-
-                function getCourseName(courseId) {
-                    var name;
                     $.ajax({
-                        type: "get",
+                        type: "post",
+                        url: "exam/insertans",
                         async: false,
-                        url: "course/getname",
-                        data: {
-                            "id": courseId,
-                        },
+                        dataType: 'json',
+                        contentType: "application/json",
+                        data: JSON.stringify(anslist),
                         success: function(data) {
-                            name = data;
+
                         },
                         error: function(data) {
-                            alert("出现异常，请重试")
+
                         }
                     })
-                    return name;
+                    
+                    window.close();
+                    alert("考试结束")
                 }
-                
-                function Trigger(i) {
-                    $("#block" + i).removeClass("btn-primary-outline").addClass("btn-primary");
-                }
-                
-                function handUp() {
-                    if(confirm("确认提交？提交后不可修改")) {
-                        
+            }
+
+            function getOption(id) {
+                var option;
+                $.ajax({
+                    type: "get",
+                    url: "question/getoption",
+                    async: false,
+                    data: {
+                        "optionId": id
+                    },
+                    success: function(data) {
+                        option = data;
+                    },
+                    error: function(data) {
+                        alert("出现异常，请重试")
                     }
-                }
-            </script>
+                })
+                return option;
+            }
+
+            function timeStamp2String(time) {
+                var datetime = new Date();
+                datetime.setTime(time);
+                var year = datetime.getFullYear();
+                var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+                var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+                var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+                var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+                var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+                return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+            }
+        </script>
     </body>
 </html>

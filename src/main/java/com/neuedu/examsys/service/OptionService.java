@@ -14,4 +14,6 @@ public interface OptionService {
 	void updateOption(Option option);
 	
 	List<Option> selectOptionByquestionId(Integer questionId);
+	
+	Option selectOptionByOptionId(Integer optionId);
 }

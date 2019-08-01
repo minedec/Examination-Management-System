@@ -40,4 +40,9 @@ public class OptionServiceImpl implements OptionService {
 		return optionMapper.selectOptionByQuestionId(questionId);
 	}
 
+	@Override
+	public Option selectOptionByOptionId(Integer optionId) {
+		return optionMapper.selectOptionByOptionId(optionId);
+	}
+
 }

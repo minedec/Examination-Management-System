@@ -25,4 +25,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM options
 		WHERE o_question_id = #{id};
 	</select>
+	
+	<select id="selectOptionByOptionId" resultType="Option" parameterType="Integer">
+		SELECT o_id optionId,o_content content,o_iscorrect iscorrect,o_analysis analysis
+		FROM options
+		WHERE o_id = #{optionId};
+	</select>
 </mapper>

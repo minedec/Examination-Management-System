@@ -1,22 +1,18 @@
 package com.neuedu.examsys.controller;
+import java.sql.Timestamp;
 /*import java.sql.Date;*/
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
-import java.sql.Timestamp;
-import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.neuedu.examsys.dao.*;
-import com.neuedu.examsys.domain.Difficulty;
 import com.neuedu.examsys.domain.Option;
 import com.neuedu.examsys.domain.Question;
-import com.neuedu.examsys.domain.QuestionType;
 import com.neuedu.examsys.service.OptionService;
 import com.neuedu.examsys.service.QuestionService;
 
@@ -68,6 +64,12 @@ public class QuestionController {
 	@ResponseBody
 	public List<Option> queryOptionByQuestionId(int questionId) {
 		return oservice.selectOptionByquestionId(questionId);
+	}
+	
+	@GetMapping("/getoption")
+	@ResponseBody
+	public Option queryOptionByOptionId(Integer optionId) {
+		return oservice.selectOptionByOptionId(optionId);
 	}
 	
 	

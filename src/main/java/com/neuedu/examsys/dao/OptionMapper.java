@@ -17,6 +17,8 @@ public interface OptionMapper {
 	
 	List<Option> selectOptionByQuestionId(Integer questionId);
 	
+	Option selectOptionByOptionId(Integer optionId);
+	
 	List<Option> selectOption();
 	
 }

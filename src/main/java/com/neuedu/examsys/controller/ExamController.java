@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -92,10 +93,13 @@ public class ExamController {
 		return tmp;
 	}
 	
-	@PostMapping("/insertAns")
+	@PostMapping("/insertans")
 	@ResponseBody
-	public boolean insertAns(HttpServletRequest request, List<AnsCollection> anslist) {
-		
+	public boolean insertAns(@RequestBody List<AnsCollection> anslist) {
+		for(AnsCollection a : anslist) {
+			acService.insertAns(a);
+		}
+		return true;
 	}
 	
 }

@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 		<if test="id!=null and content!=null">
 	 			q_content,
 	 		</if>
-	 		<if test="id!=null and isCorrect!=null">
+	 		<if test="id!=null">
 	 			q_iscorrect,
 	 		</if>
 	 		<if test="id != null and score != -1">
