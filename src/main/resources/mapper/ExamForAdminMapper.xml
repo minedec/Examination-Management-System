@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neuedu.examsys.dao.ExamForAdminMapper">
+	
+	<insert id="insertExam" parameterType="Exams" >
+		INSERT INTO exams(e_title,e_semester,e_online,e_type,e_paperid,e_course,e_datetime,e_endtime)
+		VALUES(#{examTitle},#{examSemester},#{examOnline},#{examType},#{examPaperId},#{examCourse},#{examDatetime},#{examEndtime});
+	</insert>
+	<select id="selectAllExam" resultType="Exams">
+		SELECT e_id examId,e_title examTitle,e_semester examSemester,e_online examOnline,e_type examType,e_paperid examPaperId,e_course examCourse,e_datetime examDateTime,e_endtime examEndTime 
+		FROM exams
+	</select>
+	<select id="selectExam" resultType="Exams" parameterType="Integer">
+		SELECT e_title examTitle,e_semester examSemester,e_online examOnline,e_type examType,e_paperid examPaperId,e_course examCourse,e_datetime examDateTime,e_endtime examEndTime 
+		FROM exams
+		WHERE e_id = #{id};
+	</select>
+	<delete id="deleteExam" parameterType="Integer">
+		DELETE FROM exams
+		WHERE e_id = #{id};
+	</delete>
+	<update id="updateExam" parameterType="Exams">
+		UPDATE exams
+		SET	e_title = examTitle,
+			e_semester = examSemester,
+			e_online = examOnline,
+			e_type = examType,
+			e_paperid = examPaperId,
+			e_course = examCourses,
+			e_datetime = examDatetime,
+			e_endtime = examEndtime
+		WHERE e_id = #{examId};
+	</update>
+</mapper>

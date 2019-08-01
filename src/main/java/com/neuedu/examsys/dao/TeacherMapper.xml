@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT t_id teacherId,t_icon teacherIcon,t_name teacherName,t_sex teacherSex,t_nation teacherNation,t_email teacherEmail,t_identity teacherIdentity,t_address teacherAddress,t_phone teacherPhone
 		FROM teacher
 	</select>
-	<select id="selectTeacher" resultType="Teacher" parameterType="Integer">
+	<select id="selectTeacher" resultType="Teacher" parameterType="String">
 		SELECT t_id teacherId,t_icon teacherIcon,t_name teacherName,t_sex teacherSex,t_nation teacherNation,t_email teacherEmail,t_identity teacherIdentity,t_address teacherAddress,t_phone teacherPhone
 		FROM teacher
 		WHERE t_id = #{id};
