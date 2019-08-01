@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 试卷数据操作的XML文件 
+	 author：jjd
+	 date：2019/7/30 -->
+<mapper namespace="com.neuedu.examsys.dao.PaperMapper">
+	<resultMap type="Papers" id="paperMap">
+		<id column="p_id" property="paperId"/>
+		<result column="p_name" property="paperName"/>
+		<result column="p_date" property="paperDate"/>
+		<result column="p_author" property="paperAuthor"/>
+		<result column="p_questionnum" property="questionNum"/>
+		<result column="p_score" property="paperScore"/>
+		<result column="p_course" property="paperCourse"/>
+		<result column="p_major" property="paperMajor"/>
+	</resultMap>	
+	
+	<insert id="insertPaper" parameterType="Papers">
+		INSERT INTO papers(p_id, p_name, p_date, p_author, p_questionnum, p_score, p_course, p_major)
+		VALUES (#{paperId}, #{paperName},#{paperDate},#{paperAuthor},#{questionNum},#{paperScore},#{paperCourse},#{paperMajor})		
+	</insert>
+	
+	<select id="queryPaperById" parameterType="int" resultMap="paperMap">
+		SELECT *
+		FROM papers
+		WHERE p_id = #{id};
+	</select>
+	
+	<select id="queryPaperByName" parameterType="string" resultMap="paperMap">
+		SELECT *
+		FROM papers
+		WHERE p_name = #{name};
+	</select>
+	
+	<delete id="deleteParperById" parameterType="int">
+		DELETE FROM papers
+		WHERE p_id = #{id}
+	</delete>
+	
+	<update id="updatePaper" parameterType="Papers">
+		UPDATE papers
+		SET p_name = #{paperName},
+			p_author = #{paperAuthor},
+			p_date = #{paperDate},
+			p_questionnum = #{questionNum},
+			p_score = #{paperScore},
+			p_course = #{paperCourse},
+			p_major = #{paperMajor}
+		WHERE p_id = #{paperId}
+	</update>
+</mapper>

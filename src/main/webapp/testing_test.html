@@ -295,7 +295,7 @@
                             </div>
                             <!-- 个人信息部分结束 -->
                             <!-- 交卷部分开始 -->
-                            <button class="btn btn-primary btn-block">提交</button>
+                            <button class="btn btn-primary btn-block" onclick="handUp()">提交</button>
                             <!-- 交卷部分结束 -->
                         </div>
                         <!-- 进度和个人信息面板结束-->
@@ -359,6 +359,9 @@
                             minute = Math.floor(intSecond / 60) - (hour * 60);
                             second = Math.floor(intSecond) - (hour * 60 * 60) - (minute *
                                 60);
+                        } else {
+                            //到点提交
+                            handUp();
                         }
                         $('#timer').html(hour + ":" + minute + ":" + second);
                         intSecond--;
@@ -382,6 +385,10 @@
                         }
                     })
                     return name;
+                }
+                
+                function handUp() {
+                    alert("fucxxxxxx")
                 }
             </script>
     </body>
