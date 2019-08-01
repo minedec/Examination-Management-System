@@ -28,6 +28,18 @@ public interface ExamForStudentMapper {
 	 */
 	List<Exams> queryExamsBeforeNow(String studentId);
 	
+	/**
+	 * 获取考试持续时间
+	 * @param examId 考试ID
+	 * @return 考试持续时间
+	 */
+	int queryExanDuration(int examId);
 	
+	/**
+	 * 通过考试ID查考试对象
+	 * @param examId 考试ID
+	 * @return
+	 */
+	Exams queryExamById(int examId);
 	
 }

@@ -3,6 +3,9 @@ package com.neuedu.examsys.test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -49,8 +52,17 @@ public class AccountAndAnsCollectionTest {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		sm.modifyAccountPwdById("11", "110");
-		sm.modifyAccountRoleById("11", Role.STUDENT);
+		Date date = new Date();   
+        //注意format的格式要与日期String的格式相匹配   
+        DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");   
+        try {   
+            date = sdf.parse("2019/07/23 15:05:30");   
+            System.out.println(date.toString());   
+        } catch (Exception e) {   
+            e.printStackTrace();   
+        }  
+//		sm.modifyAccountPwdById("11", "110");
+//		sm.modifyAccountRoleById("11", Role.STUDENT);
 //		AnsCollection ac = new AnsCollection();
 //		ac.setStudentId("1");
 //		ac.setExamId(3);

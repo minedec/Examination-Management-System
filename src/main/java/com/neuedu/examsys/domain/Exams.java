@@ -13,13 +13,14 @@ public class Exams {
 	private String examSemester;
 	private Integer examPaperId;
 	private String examCourse;
+	private String examEndtime;
 	
 	public Exams() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Exams(ExamOnline examOnline, ExamType examType, Integer examID, String examTitle, String examDatetime,
-			String examSemester, Integer examPaperId, String examCourse) {
+			String examSemester, Integer examPaperId, String examCourse, String examEndtime) {
 		super();
 		this.examOnline = examOnline;
 		this.examType = examType;
@@ -29,13 +30,21 @@ public class Exams {
 		this.examSemester = examSemester;
 		this.examPaperId = examPaperId;
 		this.examCourse = examCourse;
+		this.examEndtime = examEndtime;
 	}
 	
 	@Override
 	public String toString() {
 		return "Exams [examOnline=" + examOnline + ", examType=" + examType + ", examID=" + examID + ", examTitle="
 				+ examTitle + ", examDatetime=" + examDatetime + ", examSemester=" + examSemester + ", examPaperId="
-				+ examPaperId + ", examCourse=" + examCourse + "]";
+				+ examPaperId + ", examCourse=" + examCourse + ", examEndtime=" + examEndtime + "]";
+	}
+	
+	public String getExamEndtime() {
+		return examEndtime;
+	}
+	public void setExamEndtime(String examEndtime) {
+		this.examEndtime = examEndtime;
 	}
 	
 	public ExamOnline getExamOnline() {

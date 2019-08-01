@@ -353,85 +353,50 @@
                 })
             }
             
+            var divText1 = 
+                "<div class=\"row no-gutters align-items-center\">"
+               +    "<div class=\"col\">"
+               +         "<div class=\"row\">"
+                  +          "<div class=\"col-sm-9\">"
+                +                "<div class=\"row p-2\">"
+                    +                "<div class=\"col-md-4\">";
+                    
+            var divText2 = "</div>"
+                    +                "<div class=\"col-md-4 offset-2\">";
+                    
+            var divText3 = "</div>"
+                    +                "<div class=\"col-md-4 \">";
+                    
+            var divText4 = "</div></div></div>"
+                    +        "<div class=\"col-sm-3\">"
+                    +            "<a href=\"#\" class=\"btn btn-light btn-icon-split btn-sm\">"
+                    +                "<span class=\"icon text-gray-600\">"
+                    +                    "<i class=\"fas fa-arrow-right\"></i>"
+                    +                "</span>"
+                    +                "<span class=\"text text-center\" style=\"font-size:13px\">查看</span>"
+                    +            "</a>"
+            
+                    
+            var divText5 = "</div></div></div></div></div><hr />";
+            
             function buildRecentModule(length) {
-                var divId = "";
-                var testButton = "";
-                var divText1 = 
-                    "<div class=\"row no-gutters align-items-center\">"
-                   +    "<div class=\"col\">"
-                   +         "<div class=\"row\">"
-                      +          "<div class=\"col-sm-9\">"
-                    +                "<div class=\"row p-2\">"
-                        +                "<div class=\"col-md-4\">";
-                        
-                var divText2 = "</div>"
-                        +                "<div class=\"col-md-4 offset-2\">";
-                        
-                var divText3 = "</div>"
-                        +                "<div class=\"col-md-4 \">";
-                        
-                var divText4 = "</div></div></div>"
-                        +        "<div class=\"col-sm-3\">"
-                        +            "<a href=\"#\" class=\"btn btn-light btn-icon-split btn-sm\">"
-                        +                "<span class=\"icon text-gray-600\">"
-                        +                    "<i class=\"fas fa-arrow-right\"></i>"
-                        +                "</span>"
-                        +                "<span class=\"text text-center\" style=\"font-size:13px\">查看</span>"
-                        +            "</a>"
-                
-                var divAText = "<a href=\"testing_test.html\" class=\"btn btn-success btn-icon-split btn-sm\">"
-                        +                "<span class=\"icon text-gray-600\">"
-                        +                    "<i class=\"fas fa-send\"></i>"
-                        +                "</span>"
-                        +                "<span class=\"text text-center\" style=\"font-size:13px\">进行考试</span>"
-                        +            "</a>";
-                        
-                var divText5 = "</div></div></div></div></div><hr />";
-                
                 for(var i = 0; i < length; i++) {
                     //组装卡片html
                     var divId = "<div id=\"" + i + "\">";
                     var examCourseName = "<div id=\"examCourseName" + i + "\" class=\"text-md text-gray-900 font-weight-bold text-uppercase \"></div>";
                     var examSemester = "<div id=\"examSemester" + i + "\" class=\"text-info text-uppercase\" style=\"font-size:15px\"></div>";
                     var examDatetime = "<div id=\"examDatetime" + i + "\" class=\"text-info text-uppercase\" style=\"font-size:15px\"></div>";
-                    
-                    $("#exam-recent").append(divId + divText1 + examCourseName + divText2 + examSemester + divText3 + examDatetime + divText4 + divAText + divText5);
+                    var examButton = "<a id=\"examButton" + i + "\" href=\"#\" class=\"btn btn-success btn-icon-split btn-sm\" onclick=\"Testing(id)\">"
+                    +                "<span class=\"icon text-gray-600\">"
+                    +                    "<i class=\"fas fa-send\"></i>"
+                    +                "</span>"
+                    +                "<span class=\"text text-center\" style=\"font-size:13px\">进行考试</span>"
+                    +            "</a>";
+                    $("#exam-recent").append(divId + divText1 + examCourseName + divText2 + examSemester + divText3 + examDatetime + divText4 + examButton + divText5);
                 }
             }
             
             function buildPassModule(length) {
-                var divText1 = 
-                    "<div class=\"row no-gutters align-items-center\">"
-                   +    "<div class=\"col\">"
-                   +         "<div class=\"row\">"
-                      +          "<div class=\"col-sm-9\">"
-                    +                "<div class=\"row p-2\">"
-                        +                "<div class=\"col-md-4\">";
-                        
-                var divText2 = "</div>"
-                        +                "<div class=\"col-md-4 offset-2\">";
-                        
-                var divText3 = "</div>"
-                        +                "<div class=\"col-md-4 \">";
-                        
-                var divText4 = "</div></div></div>"
-                        +        "<div class=\"col-sm-3\">"
-                        +            "<a href=\"#\" class=\"btn btn-light btn-icon-split btn-sm\">"
-                        +                "<span class=\"icon text-gray-600\">"
-                        +                    "<i class=\"fas fa-arrow-right\"></i>"
-                        +                "</span>"
-                        +                "<span class=\"text text-center\" style=\"font-size:13px\">查看</span>"
-                        +            "</a>"
-                
-                var divAText = "<a href=\"testing_test.html\" class=\"btn btn-success btn-icon-split btn-sm\">"
-                        +                "<span class=\"icon text-gray-600\">"
-                        +                    "<i class=\"fas fa-send\"></i>"
-                        +                "</span>"
-                        +                "<span class=\"text text-center\" style=\"font-size:13px\">进行考试</span>"
-                        +            "</a>";
-                        
-                var divText5 = "</div></div></div></div></div><hr />";
-                
                 for(var i = 0; i < length; i++) {
                     var divId = "<div id=\"" + i + "\">";
                     var examCourseName = "<div id=\"passexamCourseName" + i + "\" class=\"text-md text-gray-900 font-weight-bold text-uppercase \"></div>";
@@ -443,16 +408,62 @@
             }
             //生成最近考试卡片html串
             function generateRecentCourseDiv(n, exam) {
-                $("#examCourseName" + n).html(exam.examID);
+                $("#examCourseName" + n).html(getCourseName(exam.examID));
                 $("#examSemester" + n).html(exam.examSemester);
                 $("#examDatetime" + n).html(exam.examDatetime);
+                $("#examButton" + n).val(exam.examID);
             }
             
             //生成通过考试html串
             function generatePassCourseDiv(n, exam) {
-                $("#passexamCourseName" + n).html(exam.examID);
+                $("#passexamCourseName" + n).html(getCourseName(exam.examID));
                 $("#passexamSemester" + n).html(exam.examSemester);
                 //$("#passexamDatetime" + n).html(exam.examDatetime);
+            }
+            
+            function getCourseName(courseId) {
+                var name;
+                $.ajax ({
+                    type: "get",
+                    async: false,
+                    url: "course/getname",
+                    data: {
+                        "id": courseId,
+                    },
+                    success: function(data) { 
+                        name = data;
+                    },
+                    error: function(data) {
+                        alert("出现异常，请重试")
+                    }
+                })
+                return name;
+            }
+            
+            function Testing(btnId) {
+                if(confirm("确定进入考试?")) {
+                    //验证时间,如果成功,后台将考试id,学生id进行绑定,设置Session
+                    $.ajax ({
+                        type: "get",
+                        url: "exam/checkTime",
+                        data: {
+                            "examId": $("#" + btnId).val(),
+                        },
+                        success: function(data) { 
+                            if(data == true) {
+                                //打开新页面
+                                window.open("testing_test.html");  
+                            } else {
+                                alert("未到考试时间！");
+                                return;
+                            }
+                        },
+                        error: function(data) {
+                            alert("出现异常，请重试")
+                        }
+                    })
+                    //新开考试页,考试页获取session绑定试卷id,加载试卷
+                }
             }
         </script>
 	</body>

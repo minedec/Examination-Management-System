@@ -26,7 +26,7 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public List<Course> selectCourse(String id) {
-		return selectCourse(id);
+		return courseMapper.selectCourse(id);
 	}
 
 	@Override

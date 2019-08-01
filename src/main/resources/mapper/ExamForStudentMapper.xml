@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="e_paperid" property="examPaperId" />
 		<result column="e_course" property="examCourse" />
 		<result column="e_datetime" property="examDatetime" />
+		<result column="e_endtime" property="examEndtime" />
 	</resultMap>
 	
 	<!-- 查询所有在当前时间之后学生的考试安排 -->
@@ -22,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM exams e, exam_collection ec
 		WHERE  ec.exam_id = e.e_id
 			  AND ec.student_id = #{studentId}
-			  AND unix_timestamp(e.e_datetime) &gt; unix_timestamp(NOW());
+			  AND unix_timestamp(e.e_endtime) &gt; unix_timestamp(NOW());
 	</select>
 
 	<!-- 查询所有在当前时间之前学生的考试安排 -->
@@ -31,7 +32,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM exams e, exam_collection ec
 		WHERE  ec.exam_id = e.e_id
 			  AND ec.student_id = #{studentId}
-			  AND unix_timestamp(e.e_datetime)  &lt; unix_timestamp(NOW());
+			  AND unix_timestamp(e.e_endtime)  &lt; unix_timestamp(NOW());
 	</select>
-
+	
+	<!-- 获得持续时间 -->
+	<select id="queryExanDuration" parameterType="int" resultType="int">
+	SELECT TIMESTAMPDIFF(
+		MINUTE,
+		(select e_datetime from exams where e_id=#{examId}), 
+		(select e_endtime from exams where e_id=#{examId})
+	) as diffTime;
+	</select>
+	
+	<select id="queryExamById" parameterType="int" resultMap="examMap">
+		SELECT *
+		FROM exams
+		WHERE e_id = #{examId};
+	</select>
+		
 </mapper>

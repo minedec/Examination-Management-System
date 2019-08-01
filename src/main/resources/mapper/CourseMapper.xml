@@ -4,16 +4,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.neuedu.examsys.dao.CourseMapper">
-	
+	<resultMap type="Course" id="courseMap">
+		<id column="course_id" property="courseId" />
+		<result column="course_name" property="courseName" />
+		<result column="course_major" property="courseMajor" />
+		<result column="course_academy" property="courseAcademy" />
+		<result column="course_credit" property="courseCredit" />
+	</resultMap>
 	<insert id="insertCourse" parameterType="Course" >
 		INSERT INTO classroom(course_id,course_name,course_major,course_academy,course_credit)
 		VALUES(#{courseId},#{courseName},#{courseMajor},#{courseAcademy},#{courseCredit});
 	</insert>
-	<select id="queryCourse" resultType="Course">
+	<select id="queryCourse" resultMap="courseMap">
 		SELECT *
 		FROM course
 	</select>
-	<select id="selectCourse" resultType="Course" parameterType="String">
+	<select id="selectCourse" resultMap="courseMap" parameterType="String">
 		SELECT *
 		FROM course
 		WHERE course_id = #{id};
