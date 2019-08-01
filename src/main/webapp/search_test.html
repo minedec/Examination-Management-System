@@ -9,17 +9,14 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Tables</title>
+  <title>SB Admin 2 - Charts</title>
 
-  <!-- Custom fonts for this template -->
+  <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
+  <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-  <!-- Custom styles for this page -->
-  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -81,9 +78,9 @@
       <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">考试管理:</h6>
-          <a class="collapse-item" href="examination-manage.html">考试安排管理</a>
-          <a class="collapse-item" href="examination-score.html">考试成绩管理</a>
-          <a class="collapse-item" href="examianation-appeal.html">学生申诉管理</a>
+          <a class="collapse-item" href="examination_manage.html">考试安排管理</a>
+          <a class="collapse-item" href="examination_score.html">考试成绩管理</a>
+          <a class="collapse-item" href="examianation_appeal.html">学生申诉管理</a>
         </div>
       </div>
     </li>
@@ -313,60 +310,112 @@
       <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800" style="padding-bottom: 80px">考试成绩管理</h1>
-        <!-- DataTales Example -->
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <div class="row">
-              <h6 class="m-0 font-weight-bold text-primary col-md-10">成绩详情</h6>
+        <h1 class="h3 mb-2 text-gray-800">用户查询</h1>
+        <div class="row">
+          <form class="offset-2 col-md-8">
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label for="searchUsername">姓名</label>
+                <input type="text" class="form-control" id="searchUsername">
+              </div>
+              <div class="form-group col-md-3 offset-1">
+                <label for="inputState">身份</label>
+                <select id="inputState" class="form-control">
+                  <option>学生</option>
+                  <option>教师</option>
+                </select>
+              </div>
+              <div class="form-group col-md-1 offset-1">
+                <label for="searchGroup">民族</label>
+                <input type="text" class="form-control" id="searchGroup" placeholder="民族">
+              </div>
+              <div class="form-group col-md-2 offset-1" style="padding-top: 30px">
+                <button type="submit" class="btn btn-success">查询</button>
+              </div>
             </div>
+
+          </form>
+        </div>
+        <h4 >查询结果</h4>
+        <div class="row">
+          <div class="col-md-2">
+            <img src="img/doge.jpg" style="max-height: 90%;max-width: 90%">
           </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                <tr>
-                  <th>学生姓名</th>
-                  <th>课程名称</th>
-                  <th>授课教师</th>
-                  <th>课程成绩</th>
-                  <th>申诉状态</th>
-                </tr>
-                </thead>
-                <tfoot>
-                <tr>
-                  <th>Name</th>
-                  <th>Position</th>
-                  <th>Office</th>
-                  <th>Age</th>
-                  <th>Start date</th>
-                </tr>
-                </tfoot>
-                <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>System Architect</td>
-                  <td>Edinburgh</td>
-                  <td>61</td>
-                  <td>2011/04/25</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Accountant</td>
-                  <td>Tokyo</td>
-                  <td>63</td>
-                  <td>2011/07/25</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Junior Technical Author</td>
-                  <td>San Francisco</td>
-                  <td>66</td>
-                  <td>2009/01/12</td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="col-md-8">
+            <form>
+              <div class="form-group">
+                <label for="InputUsername">姓名</label>
+                <input type="password" class="form-control" id="InputUsername" placeholder="姓名">
+              </div>
+              <div class="form-group">
+                <label for="InputEmail1">邮箱</label>
+                <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="邮箱">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              </div>
+              <div class="form-group">
+                <label for="InputPassword">密码</label>
+                <input type="password" class="form-control" id="InputPassword" placeholder="密码">
+              </div>
+              <div class="form-group">
+                <label for="InputUserId">身份证号</label>
+                <input type="password" class="form-control" id="InputUserId" placeholder="身份证号">
+              </div>
+              <div class="form-group">
+                <label for="InputUserGroup">民族</label>
+                <input type="password" class="form-control" id="InputUserGroup" placeholder="民族">
+              </div>
+              <div class="form-group">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio4" value="option1">
+                  <label class="form-check-label" for="inlineRadio4">男</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio5" value="option2">
+                  <label class="form-check-label" for="inlineRadio5">女</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio1" value="option1">
+                  <label class="form-check-label" for="inlineRadio1">学生</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio2" value="option2">
+                  <label class="form-check-label" for="inlineRadio2">老师</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio3" value="option3" disabled>
+                  <label class="form-check-label" for="inlineRadio3">管理员</label>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                  <label for="inputxueyuan">学院</label>
+                  <select id="inputxueyuan" class="form-control">
+                    <option>计算机</option>
+                    <option>软件</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-3 offset-1">
+                  <label for="inputzhuanye">专业</label>
+                  <select id="inputzhuanye" class="form-control">
+                    <option>计算机</option>
+                    <option>软件</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-3 offset-1">
+                  <label for="inputbanji">班级</label>
+                  <select id="inputbanji" class="form-control">
+                    <option>1737101</option>
+                    <option>1737102</option>
+                    <option>1737103</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary">更改</button>
+              </div>
+            </form>
           </div>
         </div>
 
@@ -397,7 +446,25 @@
   <i class="fas fa-angle-up"></i>
 </a>
 
-<script src="js/jquery-3.2.1.js"></script>
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href="login.html">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -409,11 +476,12 @@
 <script src="js/sb-admin-2.min.js"></script>
 
 <!-- Page level plugins -->
-<script src="vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="vendor/chart.js/Chart.min.js"></script>
 
 <!-- Page level custom scripts -->
-<script src="js/demo/datatables-demo.js"></script>
+<script src="js/demo/chart-area-demo.js"></script>
+<script src="js/demo/chart-pie-demo.js"></script>
+<script src="js/demo/chart-bar-demo.js"></script>
 
 </body>
 

@@ -117,13 +117,10 @@
                        success:function(data) {
                            if (data == "true") {
                                if(role == "ADMINISTRATOR") {
-                                   alert("管理员,欢迎登陆")
-                                   
+                                   window.location.replace("adduser_test.html");
                                } else if(role == "STUDENT") {
-                                   alert("学生,欢迎登陆");
                                    window.location.replace("stu_index_test.html");
                                } else if (role == "TEACHER") {
-                                   alert("老师,欢迎登陆");
                                    window.location.replace("teacher_index_test.html");
                                }
                            } else {

@@ -20,6 +20,13 @@
 
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/datatables/jquery.dataTables.js"></script>
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="js/admin.js"></script>
 
 </head>
 
@@ -81,9 +88,9 @@
       <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">考试管理:</h6>
-          <a class="collapse-item" href="examination-manage.html">考试安排管理</a>
-          <a class="collapse-item" href="examination-score.html">考试成绩管理</a>
-          <a class="collapse-item" href="examianation-appeal.html">学生申诉管理</a>
+          <a class="collapse-item" href="examination_manage.html">考试安排管理</a>
+          <a class="collapse-item" href="examination_score.html">考试成绩管理</a>
+          <a class="collapse-item" href="examianation_appeal.html">学生申诉管理</a>
         </div>
       </div>
     </li>
@@ -311,14 +318,22 @@
 
       <!-- Begin Page Content -->
       <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6">
 
+          </div>
+          <div class="col-md-6">
+
+          </div>
+        </div>
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800" style="padding-bottom: 80px">申诉管理</h1>
+        <h1 class="h3 mb-2 text-gray-800" style="padding-bottom: 80px">考试安排管理</h1>
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
             <div class="row">
-              <h6 class="m-0 font-weight-bold text-primary col-md-10">申诉列表</h6>
+              <h6 class="m-0 font-weight-bold text-primary col-md-10">考试列表</h6>
+              <button class="btn btn-default"  data-toggle="modal" data-target="#add-Modal">新增考试</button>
             </div>
           </div>
           <div class="card-body">
@@ -326,71 +341,31 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
-                  <th>申诉人</th>
-                  <th>申诉内容简述</th>
-                  <th>审核教师</th>
-                  <th>申诉时间</th>
-                  <th>申诉状态</th>
-                  <th>申诉处理</th>
+                  <th>考试编号</th>
+                  <th>考试科目</th>
+                  <th>考试学期</th>
+                  <th>线上线下</th>
+                  <th>考试试卷编号</th>
+                  <th>考试开始时间</th>
+                  <th>考试结束时间</th>
+                  <th>考试状态</th>
+                  <th>考试信息安排</th>
                 </tr>
                 </thead>
                 <tfoot>
                 <tr>
-                  <th>Name</th>
-                  <th>Position</th>
-                  <th>Age</th>
-                  <th>Start date</th>
-                  <th>Salary</th>
-                  <th>
-                  </th>
+                  <th>考试编号</th>
+                  <th>考试科目</th>
+                  <th>考试学期</th>
+                  <th>线上线下</th>
+                  <th>考试试卷编号</th>
+                  <th>考试开始时间</th>
+                  <th>考试结束时间</th>
+                  <th>考试状态</th>
+                  <th>考试信息安排</th>
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>System Architect</td>
-                  <td>61</td>
-                  <td>2011/04/25</td>
-                  <td>$320,800</td>
-                  <th>
-                    <button class="btn btn-default"  data-toggle="modal" data-target="#change-Modal">
-                      <i class="fa fa-pen" aria-hidden="true"></i>
-                    </button>
-                    <button class="btn btn-default" >
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                  </th>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Accountant</td>
-                  <td>63</td>
-                  <td>2011/07/25</td>
-                  <td>$170,750</td>
-                  <th>
-                    <button class="btn btn-default"  data-toggle="modal" data-target="#change-Modal">
-                      <i class="fa fa-pen" aria-hidden="true"></i>
-                    </button>
-                    <button class="btn btn-default" >
-                      <i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                  </th>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Junior Technical Author</td>
-                  <td>66</td>
-                  <td>2009/01/12</td>
-                  <td>$86,000</td>
-                  <th>
-                    <button class="btn btn-default"  data-toggle="modal" data-target="#change-Modal">
-                      <i class="fa fa-pen" aria-hidden="true"></i>
-                    </button>
-                    <button class="btn btn-default" >
-                      <i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                  </th>
-                </tr>
                 </tbody>
               </table>
             </div>
@@ -426,12 +401,12 @@
 
 <script src="js/jquery-3.2.1.js"></script>
 
-<!-- 更改信息模态框 -->
-<div class="modal fade" id="change-Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+<!-- 新建信息模态框 -->
+<div class="modal fade" id="add-Modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="ModalLabel">申诉审核</h5>
+        <h5 class="modal-title" id="modal">考试安排</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -439,27 +414,152 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="InputTitle">申诉人</label>
+            <label for="title">考试名称</label>
+            <input class="form-control" id="title">
+          </div>
+          <div class="form-group">
+            <label for="semester">学期名称</label>
+            <input class="form-control" id="semester">
+          </div>
+          <div class="form-group">
+            <label for="paperid">试卷编号</label>
+            <input class="form-control" id="paperid">
+          </div>
+          <div class="form-group">
+            <label for="type">考试状态</label>
+            <select id="type" class="form-control">
+              <option value="NORMAL">NORMAL</option>
+              <option value="LATE">LATE</option>
+              <option value="MAKEUP">MAKEUP</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="online">线上线下</label>
+            <select id="online" class="form-control">
+              <option value="ONLINE">ONLINE</option>
+              <option value="OFFLINE">OFFLINE</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="course">课程编号</label>
+            <input class="form-control" id="course">
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="date1">开始时间</label>
+              <input type="text" class="form-control datetimepicker-input" id="date1" data-toggle="datetimepicker" data-target="#datetimepicker"/>
+              <script type="text/javascript">
+                  $(function () {
+                      $('#date1').datetimepicker({
+                          format: 'YYYY-MM-DD hh:mm:ss',
+                          //todayBtn: true,
+                          //fontAwesome:'font-awesome',//指定
+                          locale: 'zh-CN'    });
+                  });
+              </script>
+            </div>
+            <div class="col-md-6">
+              <label for="date1">结束时间</label>
+              <input type="text" class="form-control datetimepicker-input" id="date2" data-toggle="datetimepicker" data-target="#datetimepicker"/>
+              <script type="text/javascript">
+                  $(function () {
+                      $('#date2').datetimepicker({
+                          format: 'YYYY-MM-DD hh:mm:ss',
+                          //todayBtn: true,
+                          //fontAwesome:'font-awesome',//指定
+                          locale: 'zh-CN'    });
+                  });
+              </script>
+            </div>
+          </div>
+          <div style="padding-left: 255px;padding-top: 20px">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="addexam()">Save changes</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 更改信息模态框 -->
+<div class="modal fade" id="change-Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">考试安排</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="InputTitle">课程名称</label>
             <input class="form-control" id="InputTitle">
           </div>
           <div class="form-group">
-            <label for="InputTextarea">申诉内容</label>
-            <textarea class="form-control" id="InputTextarea" rows="3"></textarea>
+            <label for="InputClass1">考试班级</label>
+            <div id="InputClass1">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">1737101</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                <label class="form-check-label" for="inlineCheckbox2">1737102</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                <label class="form-check-label" for="inlineCheckbox3">1737103</label>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="InputPerson">成绩修改</label>
-            <input class="form-control" id="InputPerson">
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label for="inputState">授课教师</label>
+              <select id="inputState" class="form-control">
+                <option selected>选择教师</option>
+                <option>王小</option>
+                <option>王大</option>
+                <option>王二</option>
+              </select>
+            </div>
           </div>
-          <div class="form-group col-md-4">
-            <label for="inputState">审核教师</label>
-            <select id="inputState" class="form-control">
-              <option selected>选择教师</option>
-              <option>王小</option>
-              <option>王大</option>
-              <option>王二</option>
-            </select>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="date">考试日期</label>
+              <input type="text" class="form-control datetimepicker-input" id="date" data-toggle="datetimepicker" data-target="#datetimepicker"/>
+              <script type="text/javascript">
+                  $(function () {
+                      $('#date1').datetimepicker({
+                          format: 'YYYY-MM-DD dddd',
+                          //todayBtn: true,
+                          //fontAwesome:'font-awesome',//指定
+                          locale: 'zh-CN'    });
+                  });
+              </script>
+            </div>
           </div>
-          <div style="padding-left: 255px">
+          <div class="row">
+            <div class="form-group col-md-3">
+              <label for="inputxueyuan">时间段</label>
+              <select id="inputxueyuan" class="form-control">
+                <option>上午</option>
+                <option>下午</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3 offset-1">
+              <label for="inputzhuanye">教室</label>
+              <select id="inputzhuanye" class="form-control">
+                <option>正心11</option>
+                <option>正心12</option>
+              </select>
+            </div>
+          </div>
+          <div style="padding-left: 255px;padding-top: 20px">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary">Save changes</button>
           </div>
@@ -485,8 +585,48 @@
 <script src="vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-<!-- Page level custom scripts -->
-<script src="js/demo/datatables-demo.js"></script>
+
+<!-- 日期选择器依赖-->
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+<script>
+    var queryurl = "admin/exam/selectAll";
+    $.ajax({
+        url:queryurl,
+        type:"get",
+        dataType:"json",
+        success:function(str){
+            var res = "";
+            $(str).each(function(index,e){
+                res = res
+                    +"<tr><td>"+e.examID
+                    +"</td><td>"+e.examCourse
+                    +"</td><td>"+e.examSemester
+                    +"</td><td>"+e.examOnline
+                    +"</td><td>"+e.examPaperId
+                    +"</td><td>"+e.examDatetime
+                    +"</td><td>"+e.examEndtime
+                    +"</td><td>"+e.examType
+                    +"</td><td>"+'                    <button class="btn btn-default"  data-toggle="modal" data-target="#change-Modal">\n' +
+                    '                      <i class="fa fa-pen" aria-hidden="true"></i>\n' +
+                    '                    </button>\n' +
+                    '                    <button class="btn btn-default" >\n' +
+                    '                      <i class="fa fa-trash" aria-hidden="true"></i>\n' +
+                    '                    </button>  '+"</td></tr>";
+            });
+            $("#dataTable tbody").append(res);
+        },
+        error:function(str){
+        }
+    });
+
+    //$("#dataTable").DataTable();
+    getAccount = true;
+</script>
 
 </body>
 
