@@ -29,7 +29,13 @@ public class QuestionServiceImpl implements QuestionService {
 		for(Question q:questions){
 			System.out.println(q.toString());
 		}
-		return mapper.selectQuestion();
+		return questions;
+	}
+
+	@Override
+	public Integer queryId(Question question) {
+		System.out.println("Trigger Service");
+		return mapper.queryId(question);
 	}
 
 	

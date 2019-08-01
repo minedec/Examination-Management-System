@@ -9,4 +9,6 @@ public interface QuestionService {
 	void insert(Question question);
 	
 	List<Question> select();
+	
+	Integer queryId(Question question);
 }

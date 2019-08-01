@@ -8,11 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/datatables/jquery.dataTables.js"></script>
-  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+	<script src="vendor/chart.js/Chart.min.js"></script>
 
   <title>考试管理系统</title>
 
@@ -256,56 +252,63 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">题库管理</h1>
-					<a href="teacher_setquestion_test.html"><input type="button" class="btn btn-primary" value="我要出题"/></a><br /><br />
+          <h1 class="h3 mb-2 text-gray-800">试卷管理</h1>
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">试题列表</h6>
+              <h6 class="m-0 font-weight-bold text-primary">试卷列表</h6>
             </div>
+						
+						<table>
+							<td>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>试题名称</th>
-                      <th>试题类型</th>
+                      <th>试卷名称</th>
                       <th>所属课程</th>
                       <th>所属专业</th>
-					  <th>出题人</th>
+											<th>出卷人</th>
+											<th></th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>试题名称</th>
-                      <th>试题类型</th>
+                      <th>试卷名称</th>
                       <th>所属课程</th>
                       <th>所属专业</th>
-                      <th>出题人</th>
+                    	<th>出卷人</th>
+                    	<th></th>
                     </tr>
                   </tfoot>
                   <tbody>
-										<!-- <tr>
-										  <td>简述strategy设计模式</td>
-										  <td>简答</td>
+										<tr>
+										  <td>2019春软件构造期末试题</td>
 										  <td>软件构造</td>
 										  <td>CS/SE</td>
 										  <td>王忠杰</td>
-											<td><input class="btn btn-primary" type="button" value="查看" data-toggle="modal" data-target="#view-question"/></td>
+											<td><input class="btn btn-primary" type="button" value="分析"/></td>
 										</tr>
 										<tr>
+										  <td>2019春xxx期末试题</td>
 										  <td>xxx</td>
-										  <td>简答</td>
-										  <td>软件构造</td>
-										  <td>CS/SE</td>
+										  <td>xxx</td>
 										  <td>我自己</td>
-											<td><input class="btn btn-primary" type="button" value="编辑" data-toggle="modal" data-target="#modify-question"/></td>
-										</tr> -->
-										
+											<td><input class="btn btn-primary" type="button" value="分析"/></td>
+										</tr>
                   </tbody>
                 </table>
               </div>
             </div>
+						</td>
+						<td>
+							<div class="chart-pie">
+							    <canvas id="myPieChart" width="332" height="306" class="chartjs-render-monitor"
+							        style="display: block; height: 400px; width: 400px;"></canvas>
+							</div>
+						</td>
+						</table>
           </div>
 
         </div>
@@ -329,89 +332,6 @@
 
   </div>
   <!-- End of Page Wrapper -->
-	
-	<div class="modal fade" id="view-question" tabindex="-1" role="dialog" aria-labelledby="ModalLabel2" aria-hidden="true">
-	    <div class="modal-dialog" role="document">
-	      <div class="modal-content">
-	        <div class="modal-header">
-	          <h5 class="modal-title" id="ModalLabel2">试题名</h5>
-	          <button type="button" class="close" data-dismiss="modal" aria-label="Close2">
-	            <span aria-hidden="true">&times;</span>
-	          </button>
-	        </div>
-	        <div class="modal-body">
-	          <div id="paper">
-	          
-	          <div id="zhuguanti">
-	              <div class="card  mb-3">
-	                  <div class="card-body">
-	                      <div class="row">
-	                          <div class="col-md-1">
-	                              <a class="font-weight-bold">4</a>
-	                              <a class="font-weight-bold">主观</a>
-	                          </div>
-	                          <div class="col-md-11">
-	                              <div id="text" class="row">
-	                                  简述软件构造理论
-	                              </div>
-	                              <div id="pic" class="row">
-	          
-	                              </div>
-	                              <hr />
-	                              <div id="fill" class="form-group">
-	                                  <textarea class="form-control" rows="8" disabled="true">答案</textarea>
-	                              </div>
-	                          </div>
-	                      </div>
-	                  </div>
-	              </div>
-	          </div>
-	          </div>
-	        </div>
-	        <div class="modal-footer">
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-		
-		<div class="modal fade" id="modify-question" tabindex="-1" role="dialog" aria-labelledby="ModalLabel2" aria-hidden="true">
-		    <div class="modal-dialog" role="document">
-		      <div class="modal-content">
-		        <div class="modal-header">
-		          <h5 class="modal-title" id="ModalLabel2">编辑试题</h5>
-		          <button type="button" class="close" data-dismiss="modal" aria-label="Close2">
-		            <span aria-hidden="true">&times;</span>
-		          </button>
-		        </div>
-		        <div class="modal-body">
-		          <div id="paper">
-		          
-		          <div id="zhuguanti">
-		              <div class="card  mb-3">
-		                  <div class="card-body">
-		                     
-		                      	<form action="#" method="post">
-		                      				<br />
-		                      				
-		                      				题干：<br /><textarea name="question" class="form-control">题干</textarea>
-		                      				<br />
-		                      				答案：
-		                      				<textarea name="answer" class="form-control">答案</textarea>
-		                      				<br /><br />
-		                      				<input class="btn btn-primary" type="submit" value="保存"/>
-																	<input class="btn btn-primary" type="button" value="删除"/>
-		                      	</form>
-		                      
-		                  </div>
-		              </div>
-		          </div>
-		          </div>,
-		        </div>
-		        <div class="modal-footer">
-		        </div>
-		      </div>
-		    </div>
-		  </div>
 
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
@@ -437,27 +357,6 @@
     </div>
   </div>
 
-	<script>
-		var queryurl = "/exsys/question/selectAll";
-		$.ajax({
-			url:queryurl,
-			type:"get",
-			dataType:"json",
-			success:function(str){
-				var res = "";
-				$(str).each(function(index,e){
-					res = res + "<tr><td>"+e.content+"</td><td>"+e.type+"</td><td>"+e.course+"</td><td>"+e.major+"</td><td>"+e.author+"</td></tr>";
-				});
-				$("#dataTable tbody").append(res);
-			},
-			error:function(str){
-			}
-		});
-		
-		//var accountTable=$("#dataTable").DataTable();
-		getAccount = true;
-	</script>
-
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -469,14 +368,29 @@
   <script src="js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="vendor/datatables/jquery.dataTables.js"></script>
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
 
+	<script>
+	    var ctxD = document.getElementById("myPieChart").getContext('2d');
+	    var myLineChart = new Chart(ctxD, { 
+	        type: 'doughnut',
+	        data: {
+	            labels: ["60以下", "60-70", "70-80","80-90","90-100"],
+	            datasets: [{
+	                data: [6, 3, 2,5,7],
+	                backgroundColor: ["#46BFBD", "#FDB45C", "#F7464A",,"Black"],
+	                //hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+	            }]
+	        },
+	        options: {
+				
+	        },
+	    });
+	</script>
 </body>
 
 </html>

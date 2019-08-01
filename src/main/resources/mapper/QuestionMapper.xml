@@ -24,4 +24,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT q_id questionId,q_content content,q_type type,q_score score,q_course course,q_difficulty difficulty,q_major major,q_datetime datetime, q_author author
 		FROM questions
 	</select>
+	
+	<select id="queryId" resultType="Integer" parameterType="Question">
+		SELECT q_id questionId
+		FROM questions
+		WHERE q_content = #{content}
+	</select>
 </mapper>

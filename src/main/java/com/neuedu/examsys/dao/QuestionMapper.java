@@ -16,4 +16,6 @@ public interface QuestionMapper {
 	void updateQuestion(Question question);
 	
 	List<Question> selectQuestion();
+	
+	Integer queryId(Question question);
 }
