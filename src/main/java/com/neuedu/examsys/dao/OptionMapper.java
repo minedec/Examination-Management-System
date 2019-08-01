@@ -15,11 +15,9 @@ public interface OptionMapper {
 	
 	void updateOption(Option option);
 	
-<<<<<<< HEAD
 	List<Question> selectOptionByQuestionId(Integer questionId);
-=======
 	List<Option> selectOption();
 	
 	List<Option> selectOptionByQuestionId(int questionId);
->>>>>>> branch 'master' of https://github.com/Jiang-JD/Examination-Management-System.git
+	
 }
