@@ -79,7 +79,7 @@ public class ExamController {
 			} else if(q.getType().equals(QuestionType.FILL)) {
 				tmp.add(single+multi+judge+fill, q);
 				fill++;
-			} else if(q.getType().equals(QuestionType.SINGLE)) {
+			} else if(q.getType().equals(QuestionType.TOPIC)) {
 				tmp.add(single+multi+judge+fill+topic, q);
 				topic++;
 			}

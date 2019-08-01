@@ -64,5 +64,11 @@ public class QuestionController {
 		return "teacher_questionbase_test.html";
 	}
 	
+	@RequestMapping("/options")
+	@ResponseBody
+	public List<Option> queryOptionByQuestionId(int questionId) {
+		return oservice.selectOptionByquestionId(questionId);
+	}
+	
 	
 }

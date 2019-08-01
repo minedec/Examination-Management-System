@@ -5,9 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.neuedu.examsys.dao.OptionMapper;
 import com.neuedu.examsys.domain.Option;
-import com.neuedu.examsys.domain.Question;
-import com.neuedu.examsys.dao.*;
 
 @Service
 public class OptionServiceImpl implements OptionService {
@@ -37,7 +36,7 @@ public class OptionServiceImpl implements OptionService {
 	}
 
 	@Override
-	public List<Question> selectOptionByquestionId(Integer questionId) {
+	public List<Option> selectOptionByquestionId(Integer questionId) {
 		return optionMapper.selectOptionByQuestionId(questionId);
 	}
 
